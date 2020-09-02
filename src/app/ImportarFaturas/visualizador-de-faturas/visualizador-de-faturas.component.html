@@ -1,0 +1,497 @@
+
+<div class="ui-g">
+
+
+  <!-- IDENTIFICAÇÃO -->
+  <p-fieldset class="ui-g-12" legend="Identificação" >
+    <div class="ui-g-2">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.a_Id" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Id da Fatura</label>
+      </span>
+    </div>
+    <div class="ui-g-5">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.a_ID_CONCESSIONARIA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Concessionária</label>
+      </span>
+    </div>
+    <div class="ui-g-5">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.a_ID_CLASSETARIFARIA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Classe Tarifária</label>
+      </span>
+    </div>
+  </p-fieldset>
+
+
+
+  
+  <!-- CAMPOS OBRIGATÓRIOS -->
+  <p-fieldset class="ui-g-12" legend="Lançamento de Faturas" [toggleable]="true" [collapsed]="true">
+    <!-- Coluna -->
+    <div class="ui-g-8">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.b_CO_CODIGODEBARRAS" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Código de Barras</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.b_CO_NUMERODAFATURA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Número da Fatura</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input"  type="number" [(ngModel)]="faturaSelecionada.B_CO_LEITURAANTERIOR" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Leitura Anterior</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input"  type="number" [(ngModel)]="faturaSelecionada.B_CO_LEITURAATUAL" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Leitura Atual</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.b_CO_UC" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">UC</label>
+      </span>
+    </div>
+  </p-fieldset>
+    
+
+
+
+  <!-- INFORMAÇÕES DO CONTRATO -->
+  <p-fieldset class="ui-g-12" legend="Informações de Contrato" [toggleable]="true" [collapsed]="true">
+    <!-- <div > -->
+      <!-- linha 1-->
+      <!-- <div class="ui-g-12"> -->
+        <!-- Coluna -->
+        <div class="ui-g-4">
+          <span class="ui-float-label ui-g-12">
+              <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.c_IC_DEMANDACONTRATADA" class="ui-g-12" type="text" size="30" pInputText> 
+              <label for="float-input">Demanda Contratada</label>
+          </span>
+        </div>
+        <!-- Coluna -->
+        <div class="ui-g-4">
+          <span class="ui-float-label ui-g-12">
+              <input id="float-input"  type="number" [(ngModel)]="faturaSelecionada.c_IC_DEMANDACONTRATADA_PONTA" class="ui-g-12" type="text" size="30" pInputText> 
+              <label for="float-input">Demanda Contratada Ponta</label>
+          </span>
+        </div>
+        <!-- Coluna -->
+        <div class="ui-g-4">
+          <span class="ui-float-label ui-g-12">
+              <input id="float-input"  type="number" [(ngModel)]="faturaSelecionada.c_IC_DEMANDACONTRATADA_FORAPONTA" class="ui-g-12" type="text" size="30" pInputText> 
+              <label for="float-input">Demanda Contratada Fora Ponta</label>
+          </span>
+        </div>
+      <!-- </div> -->
+    <!-- </div> -->
+  </p-fieldset>
+
+
+  <!-- INFORMAÇÕES DA FATURA -->
+    <p-fieldset class="ui-g-12" legend="Informações da Fatura" [toggleable]="true" [collapsed]="true">
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" [(ngModel)]="faturaSelecionada.D_IF_DATADEEMISSAO" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">Data de Emissão</label>
+        </span>
+      </div>
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" [(ngModel)]="faturaSelecionada.D_IF_DATADEVENC" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">Data de Vencimento</label>
+        </span>
+      </div>
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.d_IF_VALORTOTAL" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">Valor Total</label>
+        </span>
+      </div>
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" [(ngModel)]="faturaSelecionada.d_IF_SERIENF" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">Série NF</label>
+        </span>
+      </div>
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.d_IF_COSIP" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">COSIP</label>
+        </span>
+      </div>
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" [(ngModel)]="faturaSelecionada.d_IF_ORIGEMLEITURA" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">Origem Leitura</label>
+        </span>
+      </div>
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.d_IF_OUTROSDEBITOS" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">Outros Débitos</label>
+        </span>
+      </div>
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.d_IF_JUROS" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">Juros</label>
+        </span>
+      </div>
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.d_IF_MULTAS" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">Multas</label>
+        </span>
+      </div>
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.d_IF_CREDITOSDEVOLUCOES" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">Créd. e Devoluções</label>
+        </span>
+      </div>
+      <!-- Coluna -->
+      <div class="ui-g-3">
+        <span class="ui-float-label ui-g-12">
+            <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.d_IF_ATUALIZACAOMONETARIA" class="ui-g-12" type="text" size="30" pInputText> 
+            <label for="float-input">Atual. Monetária</label>
+        </span>
+      </div>
+    </p-fieldset>
+
+
+
+    
+  <!-- DESCRIÇAO DA CONTA -->
+  <p-fieldset class="ui-g-12" legend="Descrição da Conta" [toggleable]="true" [collapsed]="true">
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.e_DC_DEMANDA_PONTA_LEITANTERIOR" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Ponta Leit. Anterior</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.e_DC_DEMANDA_PONTA_LEITATUAL" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Ponta Leit. Atual</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.e_DC_DEMANDA_PONTA_REGISTRADO" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Ponta Registrado</label>
+      </span>
+    </div>
+
+
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.e_DC_DEMANDA_FORAPONTA_LEITANTERIOR" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Fora Ponta Leit. Anterior</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.e_DC_DEMANDA_FORAPONTA_LEITATUAL" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Fora Ponta Leit. Atual</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.e_DC_DEMANDA_FORAPONTA_REGISTRADO" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Fora Ponta Registrado</label>
+      </span>
+    </div>
+
+
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.e_DC_CONSUMO_LEITANTERIOR" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Leitura Anterior</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.e_DC_CONSUMO_LEITATUAL" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Leitura Atual</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.e_DC_CONSUMO_REGISTRADO" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Registrado</label>
+      </span>
+    </div>
+
+
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.e_DC_CONSUMO_FORAPONTA_LEITANTERIOR" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Fora Ponta Leit. Anterior</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.e_DC_CONSUMO_FORAPONTA_LEITATUAL" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Fora Ponta Leit. Atual</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.e_DC_CONSUMO_FORAPONTA_REGISTRADO" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Fora Ponta Registrado</label>
+      </span>
+    </div>
+
+
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.e_DC_CONSUMO_PONTA_LEITANTERIOR" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Ponta Leit. Anterior</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" [(ngModel)]="faturaSelecionada.e_DC_CONSUMO_PONTA_LEITATUAL" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Ponta Leit. Atual</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.e_DC_CONSUMO_PONTA_REGISTRADO" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Ponta Registrado</label>
+      </span>
+    </div>
+  </p-fieldset>
+
+
+
+
+  
+  <!-- ADICIONAIS -->
+  <p-fieldset class="ui-g-12" legend="Adicionais" [toggleable]="true" [collapsed]="true">
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.F_AD_BAND_AMARELA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Amarela</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.F_AD_BAND_AMARELA_PONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Amarela Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.F_AD_BAND_AMARELA_FORAPONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Amarela Fora Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.F_AD_BAND_AMARELA_INTERMEDIARIA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Amarela Intermed.</label>
+      </span>
+    </div>
+
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.F_AD_BAND_VERMELHA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Vermelha</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.F_AD_BAND_VERMELHA_PONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Vermelha Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input"  type="number" [(ngModel)]="faturaSelecionada.F_AD_BAND_VERMELHA_FORAPONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Vermelha Fora Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.F_AD_BAND_VERMELHA_INTERMEDIARIA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Vermelha Intermed.</label>
+      </span>
+    </div>
+
+
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.F_AD_BAND_VERMELHAII" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Vermelha II</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.F_AD_BAND_VERMELHAII_PONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Vermelha II Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input"  type="number" [(ngModel)]="faturaSelecionada.F_AD_BAND_VERMELHAII_FORAPONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Vermelha II Fora Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-3">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.F_AD_BAND_VERMELHAII_INTERMEDIARIA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Band. Vermelha II Intermed.</label>
+      </span>
+    </div>
+  </p-fieldset>
+
+
+
+
+
+  
+  <!-- EXCEDENTES -->
+  <p-fieldset class="ui-g-12" legend="Excedentes" [toggleable]="true" [collapsed]="true">
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.g_CE_CONSUMO_REATIVOEXCEDENTE" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Reativo</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.g_CE_CONSUMO_REATIVOEXCEDENTE_PONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Reativo Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.g_CE_CONSUMO_REATIVOEXCEDENTE_FORAPONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Consumo Reativo Fora Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.g_CE_DEMANDA_EXCEDENTE" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Excedente</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.g_CE_DEMANDA_EXCEDENTE_PONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Excedente Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.g_CE_DEMANDA_EXCEDENTE_FORAPONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Excedente Fora Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.g_CE_DEMANDA_REATIVOEXCEDENTE" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Reativa</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.g_CE_DEMANDA_REATIVOEXCEDENTE_PONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Reativa Ponta</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.g_CE_DEMANDA_REATIVOEXCEDENTE_FORAPONTA" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Demanda Reativa Fora Ponta</label>
+      </span>
+    </div>
+  </p-fieldset>
+
+
+  
+  <!-- IMPOSTOS -->
+  <p-fieldset class="ui-g-12" legend="Impostos" [toggleable]="true" [collapsed]="true">
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.H_AL_ICMS" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Alíquota ICMS</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.H_AL_PIS" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Alíquota PIS</label>
+      </span>
+    </div>
+    <!-- Coluna -->
+    <div class="ui-g-4">
+      <span class="ui-float-label ui-g-12">
+          <input id="float-input" type="number"  [(ngModel)]="faturaSelecionada.H_AL_COFINS" class="ui-g-12" type="text" size="30" pInputText> 
+          <label for="float-input">Alíquota COFINS</label>
+      </span>
+    </div>
+  </p-fieldset>
+</div>

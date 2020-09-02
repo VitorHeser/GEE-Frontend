@@ -1,0 +1,16 @@
+<div class="ui-g-12" >
+  <div class="ui-g-6" style="text-align: left;">
+    <p-selectButton [options]="caixaDeSelecao" (onChange)="recarregar()" [(ngModel)]="selecionado"></p-selectButton>
+  </div>
+  <div class="ui-g-6" style="text-align: right;">
+    <button pButton type="button" icon="pi pi-plus" title="Adicionar" (click)="addColumn()" [disabled]="columns.length === 4" style="margin-right: .5em"></button>
+    <button pButton type="button" icon="pi pi-minus" title="Remover" (click)="removeColumn()" [disabled]="columns.length === 1"></button>
+  </div>
+  <div class="ui-g-12" >
+    <div class="ui-g-12 ui-lg-3" *ngFor="let c of columns">
+      <div class="ui-g-12 card">
+        <app-conjuntodegraficos ></app-conjuntodegraficos>
+      </div>
+    </div>
+  </div>
+</div>

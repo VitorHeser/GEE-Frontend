@@ -1,0 +1,375 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    
+    // color: #555;
+    // background-image: url("assets/layout/images/background.png");
+    // background-repeat: no-repeat;
+    // background-size: cover;
+
+    // background-position-y: 5%;
+    // background-position-x: 45%;
+    // background-size: 1000px;
+    // background-image: url("assets/images/logo.png");
+ background-color: #ffffff;
+}
+
+.body2{
+    background-repeat: repeat;
+    background-image: url("assets/layout/images/background.png");
+    height: 950px;
+}
+
+.blueBar .ui-progressbar .ui-progressbar-value {
+    background: rgba(82, 82, 255, 0.789);
+ }
+ 
+ .redBar .ui-progressbar .ui-progressbar-value {
+    background: rgba(255, 82, 82, 0.789);
+ }
+ 
+.logo {
+    background-color:white !important;
+    display: block;
+    margin-top: -2.4%;
+    margin-left: -1%;
+    margin-right: auto; 
+    position: absolute;
+    width: 180px;
+}
+.drop95{
+    width: 95%;
+}
+.alertarelatorio {
+    font-family:Trebuchet MS, sans-serif;
+    margin-left: 645px;
+    margin-top: 30px;
+    font-size:11px; 
+    color:red; 
+    position: absolute;
+}
+.grid {
+    display: grid;
+}
+
+.seletor{
+    padding-bottom: 10px !important;
+}
+
+.ui-dropdown{
+    min-width: 10px !important;
+    padding-right: 1px !important;
+}
+
+.grid-auto-flow-1 {
+	grid-auto-flow: column;
+}
+
+
+.app-name{
+   height: 38px !important;
+   margin-top: 10px !important;
+}
+
+.ui-overlaypanel {
+    width: 50% !important;
+    margin-left: 25%;
+
+}
+
+.ui-inputtext {
+    padding-bottom: 15px;
+}
+
+.dashboard .user-card .user-card-content img{
+    height: 80px !important;
+    width: 80px !important;
+}
+
+.layout-wrapper .topbar .topbar-menu > li > a {
+    color: black !important;
+}
+
+.layout-wrapper .topbar .topbar-menu > li.profile-item .profile-info .topbar-item-name.profile-role {
+    color: black !important;
+    width:180px;
+}
+
+.login-body .login-panel .login-header img {
+    width: 300px;
+    position: relative;
+    margin-top: -40px;
+    margin-left: 50px;
+}
+
+.login-body{
+    background-size: 100% !important;
+    // height: 1100px !important;
+}
+
+@media only screen and (min-height: 800px) {
+    .login-body .login-panel{
+        margin-top: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.login-body .login-panel .login-header {
+    color: #e4e0e0;
+    background-color: #e4e0e0;
+}
+//##############
+//parte graficos 
+//##############
+
+@font-face {
+    font-family:Trebuchet MS, sans-serif;
+ 
+ }
+ 
+ 
+ .div1 {
+     font-family:Trebuchet MS, sans-serif;
+     background-color: rgb(37,63,147);
+     text-align: center;
+     padding-top: 1em;
+     padding-bottom: 0px;
+     border-radius: 3px;
+     height: 10%; 
+ }
+ .titulo{
+     font-family:Trebuchet MS, sans-serif;
+     margin: auto;
+     vertical-align: middle;
+     color:white !important; 
+     font-size:25px; 
+     font-weight: bold;
+     height: 100%;
+ }
+ .subtitulos {
+     font-family:Trebuchet MS, sans-serif;
+     font-weight: bold;
+     color:rgb(37,63,147); 
+     font-size:15px; 
+ }
+ 
+ 
+ .separador {
+     font-family:Trebuchet MS, sans-serif;
+     background-color: rgb(128,128,128);
+     padding-top: 0.2em;
+     margin-top: 10px;
+     border-radius: 5px;
+     position: relative;
+ }
+ 
+ .textos {
+     font-family:Trebuchet MS, sans-serif;
+     font-weight: normal;
+     color:black !important; 
+     font-size:12px; 
+     margin-top: 5px;
+     padding-left: 1em;
+     padding-right: 1em;
+     text-align:justify;
+     margin-top:  5px; 
+     position: absolute;
+ }
+ 
+ .gridRel.Titulos {
+     font-family:Trebuchet MS, sans-serif;
+     background-color:rgb(37,63,147); 
+     font-size: 10px; 
+     color:white !important; 
+     padding-left: 1em;
+     border-style: solid;
+     border-color: white;
+     border-width: 2px;
+     height: 25px; 
+ }
+ .gridRel {
+     font-family:Trebuchet MS, sans-serif;
+     background-color:rgb(229, 234, 238); 
+     font-size: 8px; 
+     padding-left: 1em;
+     border-style: solid;
+     color:black; 
+     border-color: white;
+     border-width: 2px;
+     height: 25px; 
+     border-style: solid;
+     font-weight: bold;
+ }
+ 
+ 
+ 
+ .divParametros.Titulos{
+     font-family:Trebuchet MS, sans-serif;
+     margin-top: 10px;
+     margin-left: 30px;
+     font-size: 10px; 
+     color:rgb(37,63,147); 
+     font-weight: bold;
+     position: relative;
+ }
+ .divParametros.Dados{
+     font-family:Trebuchet MS, sans-serif;
+     margin-left: 30px;
+     color:rgb(37,63,147); 
+     font-weight: bold;
+     position: relative;
+ }
+ .divParametros.rectangle { 
+     font-family:Trebuchet MS, sans-serif;
+     margin-top: -80px;
+     margin-left: 200px;
+     width: 140px; 
+     height: 35px; 
+     color:rgb(37,63,147); 
+     font-weight: bold;
+     border-radius: 8px;
+     position: absolute; 
+     background: white; 
+     border: solid 3px rgb(37,63,147);
+     text-align: center;
+     justify-content: center;
+     display: flex;
+     align-items: center;
+ }
+ .divParametros.titles { 
+     margin-top: -40px;
+     margin-left: 200px;
+     font-size: 12px; 
+     width: 140px; 
+     color:rgb(37,63,147); 
+     font-weight: bold;
+     position: absolute; 
+     background: white; 
+     text-align: center;
+     justify-content: center;
+     display: flex;
+     align-items: center;
+ }
+ 
+ .comentarios.data{
+     font-family:Trebuchet MS, sans-serif;
+     font-weight: normal;
+     color:black !important; 
+     font-size:12px; 
+     font-weight: bold;
+     padding-right: 1em;
+     text-align:justify;
+     position: relative;
+ }
+ .comentarios.responsavel{
+     font-family:Trebuchet MS, sans-serif;
+     font-weight: normal;
+     color:black !important; 
+     font-size:12px; 
+     font-weight: bold;
+     padding-right: 1em;
+     text-align:justify;
+     position: absolute;
+ }
+ .comentarios.texto{
+     font-family:Trebuchet MS, sans-serif;
+     font-weight: normal;
+     color:black !important; 
+     font-size:12px; 
+     text-align:justify;
+     padding-left: 8em;
+     position: relative;
+     
+ }
+ .inf{
+     margin-left: 5px;
+ }
+ .info{
+     height:25px;
+     text-align: left;
+ }
+ .info.titl{
+     font-weight: bold;
+ }
+ .info.dado{
+     margin-left: -10px;
+ }
+ 
+
+ .animationGEE{
+    display: inline-block;
+    margin: 0 0.5rem;
+  
+
+    animation:  /* referring directly to the animation's @keyframe declaration */
+    inout 3s infinite normal; 
+    animation-duration: 2s;
+    animation-duration: 4s;
+ }
+ @keyframes inout {
+
+    
+    0% {
+        margin-right: 0%;
+        width: 300%;
+    }
+    
+    40% {
+        margin-right: 100%;
+        width: 100%;
+    }
+    50% {
+        transform: scale(0.1);
+        opacity: 1;
+    }
+    60% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    70% {
+        transform: scale(1);
+    }
+    90% {
+        margin-right: 100%;
+        width: 100%;
+    }
+
+    100% {
+        margin-right: 0%;
+        width: 300%;
+    }
+ }
+//  .splash-screen {
+//     background: #c5c5c5;
+//     width: 100%;
+//     height: 100%;
+//     position: fixed;
+//  }
+//  .splash-screen .splash-loader {
+//  position: absolute;
+//  left: 50%;
+//  top: 50%;
+//  margin: -60px 0 0 -60px;
+//  width: 100px;
+//  height: 100px;
+//  border-radius: 100%;
+//  background-color: #c5c5c5;
+// //  border: 10px solid #616161;
+//  }
+//  .splash-screen .splash-loader img {
+//     margin-top: 12px;
+//     width: 100px;
+//  }
+//  .splash-screen .splash-loader:after {
+//  content: "";
+//      background: transparent;
+//     width: 140%;
+//     height: 140%;
+//     position: absolute;
+//     border-radius: 100%;
+//     top: -20%;
+//     left: -20%;
+//     opacity: 0.7;
+//     box-shadow: rgba(255, 255, 255, 0.6) -4px -5px 3px -3px;
+//     animation: rotate 1s infinite linear;
+//  }

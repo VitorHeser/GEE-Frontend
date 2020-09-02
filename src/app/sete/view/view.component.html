@@ -1,0 +1,40 @@
+<div class="ui-g-6" *ngIf="versoesSelect!=null" style="color: darkblue;">
+    <div class="ui-g-1" style="text-align: right; vertical-align: middle;">
+        <i style="
+        margin-top: -20px;
+        margin-left: -30px;
+        font-size:4em; 
+        ;" class="ui-g-12 ui-icon-flash-on"></i>
+    </div>
+    <div class="ui-g-11" >
+        <div class="ui-g-12" 
+        style="font-size: 15px; font-weight: bold; 
+        margin-left: -10px ;" >
+            Projeções Tarifárias SETE
+        </div>
+        <div class="ui-g-12" 
+        style="font-size: 25px;  
+            margin-top: -14px; " >
+          <font style="font-weight: bold; ">{{versoesSelect.descricao}}</font>
+          <font style="font-size: 15px; "> v{{versoesSelect.versao}}</font> 
+        </div>
+    </div>
+</div>
+<div class="ui-g-6"  style="color: darkblue;
+                            margin-left: -120px;
+                            margin-top: 30px;">
+    <p-dropdown  class="ui-g-12" [options]="versoes" [(ngModel)]="versoesSelect" 
+    (onChange)="carregarVersoes(versoesSelect.id)"
+    placeholder="Selecione a Versão" [autoWidth]="true" filter="true"  
+    styleClass = "drop95" optionLabel="descricao"></p-dropdown>
+</div>
+<div *ngIf="loading" class="ui-g-12" style="margin-top: 10px;">
+    <p-tabView>
+        <p-tabPanel header="Controle de Projeções">
+            <app-view3 [ver]="versoesSelect"></app-view3>
+        </p-tabPanel>
+        <p-tabPanel header="Efeito Final">
+            <app-view2 [ver]="versoesSelect"></app-view2>
+        </p-tabPanel>
+    </p-tabView>
+</div>

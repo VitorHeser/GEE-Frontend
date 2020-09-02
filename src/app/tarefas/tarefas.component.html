@@ -1,0 +1,115 @@
+
+
+<div class="ui-g ui-lg dashboard">
+  <div class="ui-g-12 ui-lg-12">
+    <div class="ui-g-12 ui-lg-8">
+        <p-panel header="Calendário" class="ui-g-12 ui-lg-12">
+            <p-fullCalendar #ucCalendar [style]="{'height':'700px'}"
+                *ngIf="calendarioCarregado==true" 
+                [events]="eventos" 
+                [options]="fullcalendarOptions" 
+            >
+            </p-fullCalendar>
+            <p-progressBar  *ngIf="calendarioCarregado==false" mode="indeterminate"></p-progressBar>
+        </p-panel>
+    </div>
+    <div class="ui-g-12 ui-lg-4 contacts" style="margin-top: 3px;">
+        <p-panel header="Tarefas" class="ui-g-12" [style]="{'height':'950px'}" styleClass="ui-shadow-content">
+            <ul class="ui-g-12">
+                <div class="ui-g-4" style="text-align:left">
+                    <button pButton type="button" label="Nova Tarefa" (click)="abrirEditTask(novaTarefa())" ></button>
+                </div>
+                <div class="ui-g-4" style="text-align:center; font-size: 20px; font-weight: bold;">
+                    {{dataFormatada(data)}}
+                </div>
+                <div class="ui-g-4" style="text-align:right">
+                    <button pButton type="button" (click)="dataRem1()" label="<" ></button>
+                    <button pButton type="button" (click)="dataAdd1()" label=">" ></button>
+                </div>
+                <div class="ui-g-12" style="text-align:right">
+                    <button pButton type="button" label="Show ACL" (click)="AbrirAcl()" ></button>
+                </div>
+            </ul>
+            <ul class="ui-g-12">
+                <p-scrollPanel *ngIf="eventoscaixa.length>0" class="ui-g-12" [style]="{'height': '750px'}">
+                    <li  class="clearfix" *ngFor="let ev of eventoscaixa" >
+                        <img src="{{acharimg(ev.usuario)}}" style="width: 45px; border-radius: 50%;"/>
+                        <div class="contact-info">
+                            <span class="name">{{ev.title}}</span>
+                            <span class="location">{{dataFormatada3(ev.start)}} - {{dataFormatada3(ev.end)}}</span>
+                        </div>
+                        <div class="contact-actions">
+                          <button pButton  [ngStyle]="{'background-color': ev.color, 'margin-right': '50px'}" type="button" icon="ck" ></button>
+                          <button pButton type="button" icon="ui-icon-fullscreen" (click)="abrirEditTask(ev)" ></button>
+                        </div>
+                    </li>
+                </p-scrollPanel>
+                <li *ngIf="eventoscaixa.length==0" style="text-align: center; color: lightgrey;">
+                    <H1>NENHUM EVENTO HOJE</H1>
+                </li>
+            </ul>
+        </p-panel>
+    </div>
+
+  </div>
+</div>
+
+<p-dialog class="ui-g" header="Tarefa" [(visible)]="editTask" [responsive]="false" showEffect="fade" [modal]="true" [style]="{width: '40%', height: '80%'}"  (onAfterHide)="onDialogHide()">
+    <div class="ui-g" *ngIf="editTask" style="height: 100%;">
+        <div class="ui-g-12" >
+            <label class="ui-g-12">Título</label>
+            <input class="ui-g-12" pInputText [(ngModel)]="tarefaAEditar.title" />
+        </div>
+        <div class="ui-g-6" >
+            <div class="ui-g-12"  style="text-align: left;">
+                <label class="ui-g-2">Cor</label>
+                <p-colorPicker class="ui-g-2" [(ngModel)]="tarefaAEditar.color"></p-colorPicker>
+                <input class="ui-g-8" pInputText [(ngModel)]="tarefaAEditar.color" />
+            </div>
+        </div>
+        <div class="ui-g-6" style="text-align: right;" >
+            <label class="ui-g-10">Repetições</label>
+            <p-checkbox class="ui-g-2" [(ngModel)]="porDiaDasemana" binary="true"></p-checkbox>
+        </div>
+        <div class="ui-g-12" style="text-align: right;">
+        </div>
+        <p-panel  *ngIf="porDiaDasemana==false" [style]="{'min-height': '220px'}"  class="ui-g-6" header="Por Datas">
+            <div class="ui-g">
+                <div class="ui-g-12" >
+                    <label class="ui-g-12">Data Inicio</label>
+                    <p-calendar class="ui-g-12" 
+                    [(ngModel)]="tarefaAEditar.start"
+                    [showTime]="true" dateFormat="dd/mm/yy"
+                    ></p-calendar>
+                </div>
+                <div class="ui-g-12" >
+                    <label class="ui-g-12">Data Fim</label>
+                    <p-calendar class="ui-g-12" 
+                    [(ngModel)]="tarefaAEditar.end"
+                     [showTime]="true"  dateFormat="dd/mm/yy"
+                    ></p-calendar>
+                </div>
+            </div>
+        </p-panel>
+        <p-panel *ngIf="porDiaDasemana"  class="ui-g-6" [style]="{'min-height': '220px'}"   header="Por Repetição">
+            <p-dropdown  class="ui-g" [options]="DiasDaSemana" [(ngModel)]="tarefaAEditar.daysOfWeek" 
+            placeholder="Dia da Semana" [autoWidth]="true" filter="true"  
+            styleClass = "drop95" optionLabel="label"></p-dropdown>
+        </p-panel>
+        <div class="ui-g-12" style="margin-top: 50px">
+            <label class="ui-g-12">Comentário</label>
+            <input class="ui-g-12" pInputText [(ngModel)]="tarefaAEditar.comentario" />
+        </div>
+        <div class="ui-g-12" style="text-align:left; margin-top: 150px;" >
+            <button pButton type="button" label="Salvar" (click)="salvar()" ></button>
+        </div>
+    </div>
+  </p-dialog>
+
+  
+<p-dialog  #dial1 (onShow)="showDialogMaximized(dial1)" class="ui-g" header="Migrações ACL" maximizable="true" [(visible)]="aclVisible" [responsive]="false" showEffect="fade" [modal]="true" 
+[style]="{width: '50%', height: '80%'}"  (onAfterHide)="onDialogHide()">
+    <div class="ui-g-12">
+        
+    </div>
+</p-dialog>

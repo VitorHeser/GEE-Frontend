@@ -1,0 +1,66 @@
+<div class="ui-g"  style="width: 99.5%; margin-left: 3px;" >
+  <div class="ui-g-4">
+    <div class="ui-g card">
+      <div class="ui-g-12 '"><h4>Leitura de PDF's</h4></div><br><br>
+      <div class="ui-g-12">
+        <p-dropdown  class="ui-g-12" [options]="Concessionarias" [(ngModel)]="ConcessionariaSelected" 
+        placeholder="Selecione a Concessionária" [autoWidth]="true" filter="true"  
+        styleClass = "drop95" optionLabel="label"></p-dropdown>
+      </div>
+      <div class="ui-g-12">
+        <p-fileUpload chooseLabel="Escolher"  accept="application/pdf" cancelLabel="Cancelar" uploadLabel="Enviar" customUpload="true" (uploadHandler)="onUpload($event)"> 
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                    </ul>
+                </ng-template>    
+        </p-fileUpload>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-8">
+    
+    <div class="ui-g card" *ngIf="faturasEmAberto.length>0" style="margin-left: 10px;">
+      
+      <div class="ui-g-12 card">
+        <div class="ui-g-11">
+          <p-megaMenu [model]="megaMenuItems"></p-megaMenu>
+        </div>
+        <div class="ui-g-1">
+          <div style="text-align: right;">
+            {{ (faturasEmAberto.indexOf(faturaSelecionada)+1) }} de {{ faturasEmAberto.length }}
+          </div>
+        </div>
+      </div>
+      <app-visualizador-de-faturas [faturaSelecionada]="faturaSelecionada" ></app-visualizador-de-faturas>
+    </div>
+  </div>
+</div>
+<p-dialog  #dial (onShow)="showDialogMaximized(dial)" (onClose)="dataview==false" class="ui-g" header="Fatura" *ngIf="dataview" [(visible)]="dataview" [responsive]="true"  showEffect="fade" 
+    [maximizable]="true" [style]="{  width: '100%' }"   (onAfterHide)="onDialogHide()">
+    <div class="ui-g-6">  
+      <div class="ui-g-12">
+        <app-visualizador-de-faturas *ngIf="dataview" class="ui-g" [faturaSelecionada]="faturaSelecionada" ></app-visualizador-de-faturas>
+
+      </div>
+      <div class="ui-g-6" style="text-align: center;">
+        <button pButton (click)="Deletar()" type="button" icon="ui-icon-delete" label="Deletar"  class="ui-button-danger"></button>
+      </div>
+      <div class="ui-g-6" style="text-align: center;">
+        <button pButton (click)="Aprovar()" type="button" icon="pi pi-check" label="Aprovar"  class="ui-button-success"></button>
+      </div>
+    </div>
+
+    <!-- Galeria -->
+    <div class="ui-g-6" width="800px" *ngIf="dataview"  > 
+      <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="id=id+1" 
+      [disabled]="id === faturaSelecionada.a_ID_QUANTIDADEDEFOTOS" style="margin-right: .5em"></button>
+
+      <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="id=id-1" 
+      [disabled]="id === 1"></button>
+
+      <img src="{{importar.ImagemFatura(faturaSelecionada.a_Id,id)}}"width="100%">
+    </div>
+</p-dialog>
+
+

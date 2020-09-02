@@ -1,0 +1,150 @@
+<div class="ui-g-12 ui-lg-12">
+  <div class="ui-g-12 ui-lg-3">
+    <div class="ui-g-12 ui-lg-12">
+      <div class="user-card ui-shadow-content">
+        <div class="user-card-header">
+            <img src="assets/layout/images/dashboard/user-card-header3.jpeg"/>
+        </div>
+        <div class="user-card-content">
+          <img style="border-radius: 50%;"  src="{{urlimage}}" />
+            <!-- <p-menu #menu popup="popup" [model]="items"></p-menu> -->
+
+            <div class="user-card-name">
+                <span>{{nome}}</span>
+            </div>
+            <div class="user-detail">
+              <ul >
+                <li
+                *ngIf="PermPaineisAnaliticos == true"
+                class="clearfix" (click)="indicEnergShow()">
+                  <i class="ui-icon-open-in-browser"></i>
+                  <span class="project-title">Painel Gerencial</span>
+                </li>
+                <li 
+                *ngIf="PermPaineisAnaliticos ==true"
+                class="clearfix" (click)="indicAnalitShow()">
+                  <i class="ui-icon-open-in-browser"></i>
+                  <span class="project-title">Painel Analítico</span>
+                </li>
+                <li
+                *ngIf="PermMedicoesDeFronteiras ==true"
+                class="clearfix" (click)="indicSCDEShow()">
+                  <i class="ui-icon-open-in-browser"></i>
+                  <span class="project-title">Indicadores SCDE</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-lg-12">
+        <p-panel header="Filtro Resumo" class="ui-g-12 ui-lg-12" [style]="{'height':'260px'}">
+          <div class="ui-g-12">
+            <div class="ui-g-12">
+              <div class="ui-g-3">
+                Início
+              </div>
+              <div class="ui-g-9">
+                <p-calendar class="ui-g-12" [(ngModel)]="date1" (onSelect)="recarregar()"
+                view="{{formatoview}}" dateFormat="{{formatodedata}}" [showTime]="campodehora"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-3">
+                Fim
+              </div>
+              <div class="ui-g-9">
+                <p-calendar class="ui-g-12" [(ngModel)]="date2" (onSelect)="recarregar()"
+                view="{{formatoview}}" dateFormat="{{formatodedata}}" [showTime]="campodehora"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <p-dropdown  class="ui-g-12" [options]="optionsDropDown" [(ngModel)]="optionSelected" (onChange)="recarregar()"
+                placeholder="Selecione o tipo" [autoWidth]="true" filter="true"  
+                styleClass = "drop95" optionLabel="label"></p-dropdown>
+            </div>
+          </div>
+          <!-- <app-resumo-cognos-anos></app-resumo-cognos-anos> -->
+      </p-panel>
+    </div>
+  </div>
+
+  <!-- gráficos de resultados -->
+  <div class="ui-g-12 ui-lg-9">
+    <p-panel header="Resumo" class="ui-g-12 ui-lg-12" [style]="{'min-height':'724px'}">
+        <app-resumo-cognos-principal *ngIf="visivel" [optionSelected]="optionSelected" [date1]="date1" [date2]="date2" ></app-resumo-cognos-principal>
+    </p-panel>
+  </div>
+</div>
+
+
+
+
+<!-- =================================================================================================== -->
+<!-- PDIALOGS AQUI -->
+
+<!-- TABELAS DE RELATÓRIOS -->
+<p-dialog [(visible)]=dialogRelatorios *ngIf="dialogRelatorios" [style]="{  heigth: '50%', width: '80%' }"> 
+  <p-table [value]="relatorio" [paginator]="true" [rows]="15" [columns]="colsVirSap"> 
+    <ng-template pTemplate="header" let-columns>
+        <tr style="font-size: 12px !important;">
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr style="font-size: 10px !important;">
+        <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
+
+<!-- GRAFICOS COGNOS GERENCIAIS -->
+<p-dialog  #dial1 (onShow)="showDialogMaximized(dial1)" (onClose)="indicadoresDeEnergia==false" 
+  class="ui-g" header="Indicadores de Energia" 
+  *ngIf="indicadoresDeEnergia" [(visible)]="indicadoresDeEnergia" 
+  [responsive]="true"  showEffect="fade" 
+  [maximizable]="true" [style]="{  width: '100%' }"   (onAfterHide)="onDialogHide()">
+  <app-painel-gerencial [indx]="1"></app-painel-gerencial>
+</p-dialog>
+
+
+<!-- GRAFICOS COGNOS ANALÍTICOS -->
+<p-dialog  #dial2 (onShow)="showDialogMaximized(dial2)" (onClose)="indicadoresAnaliticos==false" 
+class="ui-g" header="Indicadores Analíticos" 
+*ngIf="indicadoresAnaliticos" [(visible)]="indicadoresAnaliticos" 
+[responsive]="true"  showEffect="fade" 
+[maximizable]="true" [style]="{  width: '100%' }"   (onAfterHide)="onDialogHide()">
+
+  <app-graficosanaliticos></app-graficosanaliticos>
+</p-dialog>
+
+
+
+<!-- GRAFICOS SCDE -->
+<p-dialog  #dial2 (onShow)="showDialogMaximized(dial2)" (onClose)="indicadoresSCDE==false" 
+class="ui-g" header="Indicadores SCDE" 
+*ngIf="indicadoresSCDE" [(visible)]="indicadoresSCDE" 
+[responsive]="true"  showEffect="fade" 
+[maximizable]="true" [style]="{  width: '100%' }"   (onAfterHide)="onDialogHide()">
+  <app-graficos-scde></app-graficos-scde>
+</p-dialog>
+
+
+
+<!-- TABELA DE PROJEÇÕES SETE -->
+<p-dialog  #dial3 (onShow)="showDialogMaximized(dial3)" (onClose)="dialogSETE==false" 
+[(visible)]="dialogSETE"  [style]="{  heigth: '50%', width: '80%' }"> 
+  <div class="ui-g-12"
+      style="
+      margin-top: -40px;
+      margin-left: -5px">  
+    <app-view  *ngIf="dialogSETE" [versao]="UltimaVersaoSETE.id" ></app-view>
+  </div>
+</p-dialog>

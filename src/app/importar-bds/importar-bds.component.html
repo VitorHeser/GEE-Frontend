@@ -1,0 +1,18 @@
+
+<div class="ui-g card">
+  <div class="ui-g-12 '"><h4>Leitura de PDF's</h4></div><br><br>
+  <div class="ui-g-12">
+    <p-dropdown  class="ui-g-12" [options]="Importacoes" [(ngModel)]="ImportacaoSelected" 
+    placeholder="Selecione a Importação" [autoWidth]="true" filter="true"  
+    styleClass = "drop95" optionLabel="label"></p-dropdown>
+  </div>
+  <div class="ui-g-12">
+    <p-fileUpload chooseLabel="Escolher"  cancelLabel="Cancelar" uploadLabel="Enviar" customUpload="true" (uploadHandler)="onUpload($event)"> 
+            <ng-template pTemplate="content">
+                <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                </ul>
+            </ng-template>    
+    </p-fileUpload>
+  </div>
+</div>

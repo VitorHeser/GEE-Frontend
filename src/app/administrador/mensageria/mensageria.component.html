@@ -1,0 +1,86 @@
+<div class="card card-w-title ui-g ui-md" >
+  <div class="ui-g-12  ui-md-12" style="text-align: right;">
+    <div class="ui-g-12  ui-md-8" style="text-align: left;">
+      <h4>ENVIAR EMAIL DE NOTIFICAÇÃO</h4>
+    </div>
+    <div class="ui-g-12  ui-md-2" style="text-align: right;">
+      <button type="button" pButton  label="Modelos"  (click)="Modelos()"></button>
+    </div>
+    <div class="ui-g-12  ui-md-2" style="text-align: right;">
+      <button type="button" pButton  label="Salvar novo Modelo"  (click)="novoModelo()"></button>
+    </div>
+  </div>
+  <div  class="ui-g-12  ui-md-12">
+    <div  class="ui-g-12  ui-md-11">
+      <div class="ui-g-12 ui-md-12" >
+        <p-chips [(ngModel)]="emails" separator=","></p-chips>
+
+      </div>
+      <div class="ui-g-12 ui-md-12" style="margin-top: 15px">
+        <span class="md-inputfield">
+          <input id="input" type="text" [(ngModel)]="ModeloAtivo.titulo" class="ui-g-12" pInputText/>
+          <label>Assunto</label>
+        </span>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-1" style="margin-top: 15px" style="text-align: right;">
+      <button type="button" pButton icon="pi pi-save" label="Enviar"  (click)="AoSalvar()"></button>
+    </div>
+
+    <div class="ui-g-12  ui-md-12">
+      <p-editor [(ngModel)]="ModeloAtivo.texto" [style]="{'height':'320px'}"></p-editor>
+    </div>
+  </div>
+</div>
+
+<p-dialog [(visible)]="carregando" [style]="{width: '1%',height: '1%'}">
+  <div class="splash-screen" style="margin-top:-180px; margin-left:-180px;height:20%;width:20%; border-radius: 15px;" >
+    <div class="splash-loader">
+        <img src="assets/layout/images/SISPCpng.png">
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="novoModeloP" [style]="{width: '30%',height: '20%'}">
+  <div class="ui-g ui-md">
+    <div class="ui-g-12 ui-md-12">
+      <span class="md-inputfield">
+        <input id="input" type="text" [(ngModel)]="ModeloAtivo.apelido" class="ui-g-12" pInputText/>
+        <label>Nome do Modelo</label>
+      </span>
+    </div>
+    <div class="ui-g-12  ui-md-6" style="text-align: right;">
+      <button type="button" pButton icon="pi pi-save" label="Salvar Novo Modelo"  (click)="SalvarNovoModelo(0)"></button>
+    </div>
+    <div class="ui-g-12  ui-md-6" *ngIf="ModeloAtivo.id!=0" style="text-align: right;">
+      <button type="button" pButton icon="pi pi-save" label="Sobrescrever Existente"  (click)="SalvarNovoModelo(ModeloAtivo.id)"></button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="modelos" [style]="{width: '50%',height: '50%'}">
+  <div  style="margin-left: 20px; margin-right: 40px;" class="ui-g ui-md">
+    <p-table [value]="modelosCadastrados">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>NomeDoTemplate</th>
+                <th>Assunto</th>
+                <th>Selecionar</th>
+                <th>Selecionar</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car>
+            <tr>
+                <td>{{car.apelido}}</td>
+                <td>{{car.titulo}}</td>
+                <td>
+                  <button type="button" pButton icon="pi pi-save" label="Selecionar" (click)="selecionarModelo(car)"></button>
+                </td>
+                <td>
+                  <button type="button" pButton icon="pi pi-save" label="Deletar" (click)="deletarModelo(car)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+  </div>
+</p-dialog>

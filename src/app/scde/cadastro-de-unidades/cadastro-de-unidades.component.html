@@ -1,0 +1,92 @@
+<p-table #dt [columns]="cols" [value]="unidades" selectionMode="single" [(selection)]="selectedunidade" 
+(onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+      Lista de Unidades
+  </ng-template>
+  <ng-template pTemplate="caption">
+      <div style="text-align: right">        
+          <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+          <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+      </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+      <tr>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+          </th>
+          <th >
+              UC - MercadoLivre
+          </th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+          <td *ngFor="let col of columns">
+              {{rowData[col.field]}}
+          </td>
+          <td>
+              {{ rowData['ucmercadoLivre']!=null ? rowData['ucmercadoLivre'].nomeUc : null}}
+          </td>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="summary" let-rowData>
+      <div style="text-align:left">
+          <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
+      </div>
+  </ng-template>    
+</p-table>
+
+<p-dialog header="unidade Details" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '500px'}">
+  <div class="p-grid ui-fluid" *ngIf="unidade">
+      <div class="p-col-12">
+          <label for="agente">Agente</label>
+      </div>
+      <div class="p-col-12">
+          <input pInputText id="agente" [(ngModel)]="unidade.agente" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="ucmercadoLivre">UC Mercado Livre</label>
+      </div>
+      <div class="p-col-12">
+        <p-dropdown  class="ui-g-12" [options]="UcMercadoLivre" [(ngModel)]="unidade.ucmercadoLivre" 
+            placeholder="Selecione a UC do ML" [autoWidth]="true" filter="true"  
+            styleClass = "drop95" optionLabel="nomeUc"></p-dropdown>
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="unidade">Unidade</label>
+      </div>
+      <div class="p-col-12">
+          <input pInputText id="unidade" [(ngModel)]="unidade.unidade" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="uc">UC</label>
+      </div>
+      <div class="p-col-12">
+          <input pInputText id="uc" [(ngModel)]="unidade.uc" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="medidor">Medidor</label>
+      </div>
+      <div class="p-col-12">
+          <input pInputText id="medidor" [(ngModel)]="unidade.medidor" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="fechamento">Fechamento</label>
+      </div>
+      <div class="p-col-12">
+          <input pInputText id="fechamento" type="number" [(ngModel)]="unidade.fechamento" />
+      </div>
+  </div>
+  <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
+      </div>
+  </p-footer>
+</p-dialog>

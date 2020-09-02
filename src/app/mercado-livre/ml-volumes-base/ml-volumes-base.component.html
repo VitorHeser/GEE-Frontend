@@ -1,0 +1,349 @@
+<div class="ui-g card">
+  <div class="ui-g-12">
+    <h2>Contratos x Previsão de Consumo (MWm)</h2>
+  </div>
+  <div class="ui-g-3">
+    <div class="ui-g-3">
+      Início
+    </div>
+    <div class="ui-g-9">
+      <p-calendar class="ui-g-12" [(ngModel)]="date1"
+      view="month" dateFormat="mm/yy" 
+      ></p-calendar>
+    </div>
+  </div>
+  <div class="ui-g-3">
+    <div class="ui-g-3">
+      Fim
+    </div>
+    <div class="ui-g-9">
+      <p-calendar class="ui-g-12" [(ngModel)]="date2"
+      view="month" dateFormat="mm/yy" 
+      ></p-calendar>
+    </div>
+  </div>
+  <div class="ui-g-5">
+    <p-multiSelect  class="ui-g-12"  [options]="Fornecedores" [(ngModel)]="FornecedoresFiltrados"
+    defaultLabel="Selecione o Fornecedor"  filter="true"  
+      styleClass = "drop95" ></p-multiSelect>    
+  </div>
+  <div class="ui-g-1">
+    <button pButton id="user-button" type="button" icon="ui-icon-search" 
+    (click)="carregarDados()" class="secondary"></button>
+  </div>
+</div>
+<p-progressBar  *ngIf="loading==false && confirm==true" mode="indeterminate"></p-progressBar>
+<div class="ui-g card" *ngIf="loading">
+
+  <div class="ui-g-12" style="text-align: left;">
+    <button pButton type="button" (click)="op2.toggle($event)" icon="pi pi-plus"></button>
+    Perdas  
+
+    <p-overlayPanel #op2 >
+      <div class="ui-g-12">
+        <div class="ui-g-12" *ngFor="let perda of perdas">
+          <div class="ui-g-4">{{ perda.data }}</div>
+          <div class="ui-g-6"> 
+            <input class="ui-g-12" style="text-align: center;" pInputText type="number" [(ngModel)]="perda.valor" />
+          </div>
+          <div class="ui-g-2"> 
+            %
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12" style="text-align: right;">
+        <p-button label="Salvar" (click)="salvarPerdas()"></p-button>
+      </div>
+    </p-overlayPanel>
+  </div>
+
+  <p-fieldset legend="Totalizador (MWm)" [toggleable]="true" [collapsed]="true" *ngIf="loading" >
+    <div class="ui-g-12" style="text-align: right;">
+      <p-button (click)="abrirDialogTotal()">
+        <i class="material-icons">dashboard</i>
+      </p-button>
+    </div>
+    <p-table #dt [value]="ProdutosFiltrados2Totalizador"class="ui-g-12" >
+      
+      <!-- Cabeçalho -->
+      <ng-template pTemplate="header" style="font-size: 10px !important;">
+          <tr >
+            <th  style="background-color: darkblue; color: white; text-align: center; width: 200px; border: 1px solid #ddd">
+              Tipo
+            </th>
+            <th *ngFor="let date of ArrayDates" style="background-color: #bcbde4;
+            text-align: center; vertical-align: middle; border: 1px solid #ddd; ">
+              <p  *ngIf="ArrayDates.length>18" style="writing-mode: vertical-rl; text-orientation: initial;">
+                {{ date }}
+              </p>
+              <p  *ngIf="ArrayDates.length<=18">
+                {{ date }}
+              </p>
+            </th>
+          </tr>
+      </ng-template>
+
+      <!-- Corpo -->
+      <ng-template pTemplate="body" let-produto >
+        <tr style="text-align: center; height: 40px; font-size: 13px;">
+          <td > 
+            {{produto.nome}}
+          </td>
+          <td *ngFor="let val of produto.base">
+            {{
+              val == 0 ? "-" :
+              val.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}
+              )}}
+          </td>
+        </tr>
+      </ng-template> 
+    </p-table>
+  </p-fieldset>
+  
+  <p-fieldset legend="Volumes (MWm) x Submercados" [toggleable]="true" [collapsed]="true" *ngIf="loading" >
+    <div class="ui-g-12" style="text-align: right;">
+      <p-button (click)="abrirDialogSubmercado()">
+        <i class="material-icons">dashboard</i>
+      </p-button>
+    </div>
+    <p-table #dt [value]="ProdutosFiltrados2Submercado"class="ui-g-12" >
+      
+      <!-- Cabeçalho -->
+      <ng-template pTemplate="header" style="font-size: 10px !important;">
+          <tr >
+            <th  style="background-color: darkblue; color: white; text-align: center; width: 150px; border: 1px solid #ddd">
+              Submercado
+            </th>
+            <th  style="background-color: darkblue; color: white; text-align: center; width: 190px; border: 1px solid #ddd">
+              Tipo
+            </th>
+            <th *ngFor="let date of ArrayDates" style="background-color: #bcbde4;
+            text-align: center; vertical-align: middle; border: 1px solid #ddd; ">
+              <p  *ngIf="ArrayDates.length>15" style="writing-mode: vertical-rl; text-orientation: initial;">
+                {{ date }}
+              </p>
+              <p  *ngIf="ArrayDates.length<=15">
+                {{ date }}
+              </p>
+            </th>
+          </tr>
+      </ng-template>
+
+      <!-- Corpo -->
+      <ng-template pTemplate="body" let-produto >
+        <tr style="text-align: center; height: 40px; font-size: 13px;">
+          <td rowspan="3"> 
+            {{produto.regiao}}
+          </td>
+          <td> 
+            Base + Flex %
+          </td>
+          <td *ngFor="let val of produto.Flexmais">
+            {{
+              val == 0 ? "-" :
+              val.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}
+              )}}
+          </td>
+        </tr>
+        <tr style="text-align: center; height: 40px; font-size: 13px;">
+          <td> 
+            Base
+          </td>
+          <td *ngFor="let val of produto.base">
+            {{
+              val == 0 ? "-" :
+              val.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}
+              )}}
+          </td>
+        <tr style="text-align: center; height: 40px; font-size: 13px;">
+          <td> 
+            Base - Flex %
+          </td>
+          <td *ngFor="let val of produto.Flexmenos">
+            {{
+              val == 0 ? "-" :
+              val.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}
+              )}}
+          </td>
+        </tr>
+      </ng-template> 
+    </p-table>
+  </p-fieldset>
+
+
+  <p-fieldset legend="Volumes (MWm) x Produtos" [toggleable]="true" [collapsed]="true" *ngIf="loading" class="ui-g-12">
+    <p-table #dt [value]="ProdutosFiltrados2" class="ui-g-12" [scrollable]="true" >
+      
+      <!-- Cabeçalho -->
+      <ng-template pTemplate="header" style="font-size: 10px !important;">
+          <tr >
+            <th  style="background-color: darkblue; color: white; text-align: center; width: 150px; border: 1px solid #ddd">
+              Contrato
+            </th>
+            <th style="background-color: darkblue; color: white; text-align: center; width: 150px; border: 1px solid #ddd">
+              Submercado
+            </th>
+            <th style="background-color: darkblue; color: white; text-align: center; width: 190px; border: 1px solid #ddd">
+              Produto
+            </th>
+            <th  style="background-color: darkblue; color: white; text-align: center; width: 150px; border: 1px solid #ddd">
+              Flex
+            </th>
+            <th *ngFor="let date of ArrayDates" style="background-color: #bcbde4;
+            text-align: center; vertical-align: middle; border: 1px solid #ddd; ">
+              <p style="writing-mode: vertical-rl; text-orientation: initial;">
+                {{ date }}
+              </p>
+            </th>
+          </tr>
+      </ng-template>
+
+      <!-- Corpo -->
+      <ng-template pTemplate="body" let-produto let-expanded="expanded" >
+        <tr style="text-align: center; height: 40px; font-size: 13px;">
+          <td rowspan="3"  style="text-align: center; width: 150px; "> 
+            {{ produto.contrato }}
+          </td>
+          <td rowspan="3"  style="text-align: center; width: 150px; "> 
+            {{ produto.submercadoreg }}
+          </td>
+          <td rowspan="3"  style="text-align: center; width: 190px; "> 
+            {{ produto.contrato.substring(0,3)+"_"
+              +produto.submercado+"_"
+              +produto.tipoDeEnergia+"_"
+              +produto.dataInicio.substring(6,10) }}
+          </td>
+          <td style="text-align: center; width: 150px; "> 
+            Base + Flex ({{ produto.flexibilidade*100 }}%)
+          </td>
+          <td *ngFor="let val of produto.flexmais">
+            {{
+              val == 0 ? "-" :
+              val.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}
+            )}}
+          </td>
+        </tr>
+        <tr style="text-align: center; height: 40px; font-size: 13px;">
+          <td> 
+            Base
+          </td>
+          <td *ngFor="let val of produto.base">
+            {{
+              val == 0 ? "-" :
+              val.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}
+            )}}
+          </td>
+        </tr>
+        <tr style="text-align: center; height: 40px; font-size: 13px;">
+          <td> 
+            Base - Flex ({{ produto.flexibilidade*100 }}%)
+          </td>
+          <td *ngFor="let val of produto.flexmeno">
+            {{
+              val == 0 ? "-" :
+              val.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}
+            )}}
+          </td>
+        </tr>
+      </ng-template> 
+    </p-table>
+  </p-fieldset>
+</div>
+
+
+
+
+
+<!-- PDIALOGS -->
+
+<p-dialog #dial1 (onShow)="showDialogMaximized(dial1)" header="Volumes (MWh) x Submercado" class="ui-g"
+ [(visible)]="DialogSubmercado" [focusOnShow]="false"  [maximizable]="true" 
+[responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '80%', height: '80%'}">
+  <div class="ui-g-6" *ngFor="let prod of ProdutosFiltrados2Submercado, let i=index" >
+    <div class="ui-g-12">
+      <h2>{{prod.regiao}}</h2>
+    </div>
+    <div class="ui-g-12" height="80%"  *ngIf="DialogSubmercado && prod.saida>0" >
+      <div class="ui-g-12">
+        <app-ml-vol-base-graficos class="ui-g-12" 
+        [perdas]="perdas"
+        [dadosRealizados]="ListaSubmercados[i]"
+        *ngIf="DialogSubmercado && prod.saida>0" [tamanho]="'300px'" 
+        [consPrev]="ArrayConsumoPrevistoSubmercado[ProdutosFiltrados2Submercado.indexOf(prod)]" [eixos]="ArrayDates" [dados]="prod" ></app-ml-vol-base-graficos>
+      </div>
+      <div class="ui-g-12">
+        <p-table [value]="[0]" class="ui-g-12" >
+          <!-- Cabeçalho -->
+          <ng-template pTemplate="header">
+              <tr style="font-size: 10px !important;">
+                <th>
+                  Tipo
+                </th>
+                <th *ngFor="let dat of ArrayDates">
+                  {{dat}}
+                </th>
+              </tr>
+          </ng-template>
+    
+          <!-- Corpo -->
+          <ng-template pTemplate="body" let-produto >
+            <tr style="text-align: center;  font-size: 10px;">
+              <td > 
+                Flex (+)
+              </td>
+              <td *ngFor="let val of prod.Flexmais">
+                {{val.toLocaleString(undefined, {minimumFractionDigits: 1,maximumFractionDigits: 1})}}
+              </td>
+            </tr>
+            <tr style="text-align: center; font-size: 10px;">
+              <td > 
+                Flex (-)
+              </td>
+              <td *ngFor="let val of prod.Flexmenos">
+                {{val.toLocaleString(undefined, {minimumFractionDigits: 1,maximumFractionDigits: 1})}}
+              </td>
+            </tr>
+            <tr style="text-align: center;  font-size: 10px;">
+              <td > 
+                Status
+              </td>
+              <td *ngFor="let val of ArrayConsumoPrevistoSubmercado[ProdutosFiltrados2Submercado.indexOf(prod)], let i = index">
+                <i class="ui-icon-expand-less" style="color: red; " *ngIf="val>=prod.Flexmais[i] && val!=0"></i>
+                <i class="ui-icon-check"  *ngIf="val<=prod.Flexmais[i] && val>=prod.Flexmenos[i] && val!=0"></i>
+                <i class="ui-icon-expand-more"  style="color: red;" 
+                *ngIf="val<=prod.Flexmenos[i] && val!=0"></i>
+                
+              </td>
+            </tr>
+            <tr style="text-align: center;  font-size: 10px;">
+              <td > 
+                Exposição
+              </td>
+              <td style="color: red;"  *ngFor="let val of ArrayConsumoPrevistoSubmercado[ProdutosFiltrados2Submercado.indexOf(prod)], let i = index">
+                {{
+                  (
+                    val==0? "-" : 
+                    val>=prod.Flexmais[i] ? "(+) "+(val-prod.Flexmais[i]).toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}) : 
+                    val<=prod.Flexmenos[i] ? "(-) "+(prod.Flexmenos[i]-val).toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2}) : 
+                    "-"
+                  )
+                }}
+              </td>
+            </tr>
+          </ng-template> 
+        </p-table>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog #dial2 (onShow)="showDialogMaximized(dial2)" header="Volumes Totais (MWh)" class="ui-g"
+ [(visible)]="DialogTotal" [focusOnShow]="false"  [maximizable]="true" 
+[responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '80%', height: '80%'}">
+  <div class="ui-g-12">
+    <app-ml-vol-base-graficos 
+    [dadosRealizados]="ListaTotais"
+    class="ui-g-12" *ngIf="DialogTotal" [perdas]="perdas" [eixos]="ArrayDates" [tamanho]="'600px'" [consPrev]="ArrayConsumoPrevisto" [dados]="ArrayTotal" ></app-ml-vol-base-graficos>
+  </div>
+</p-dialog>
+

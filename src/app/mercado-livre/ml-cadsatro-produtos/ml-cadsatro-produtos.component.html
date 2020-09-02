@@ -1,0 +1,143 @@
+<H2>Produtos</H2>
+<p-table #dt [columns]="cols" [value]="unidades" selectionMode="single" [(selection)]="selectedunidade" 
+(onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+      <div class="ui-g">        
+        <div style="text-align: left;" class="ui-g-1">        
+            <button type="button" (click)="ResetFiltro()" pButton label="reset"></button>
+        </div>
+        <div style="text-align: left;" class="ui-g-1">        
+            <p-dropdown  class="ui-g-12" [options]="ContraPartes" [(ngModel)]="ContratoSelect" 
+            placeholder="Contrato" [autoWidth]="true" filter="true"   (onChange)="AtualizarContrato()"  
+            styleClass = "drop95" optionLabel="nome"></p-dropdown>
+        </div>
+        <div style="text-align: left;" class="ui-g-1">        
+            <p-dropdown  class="ui-g-12" [options]="Submercados" [(ngModel)]="SubmercSelect" 
+                placeholder="Submercado" [autoWidth]="true" filter="true"   (onChange)="AtualizarSubmercado()"
+                styleClass = "drop95" optionLabel="regiao"></p-dropdown>
+        </div>
+        <div style="text-align: right;" class="ui-g-9">        
+            <i class="pi pi-search" ></i>
+            <input type="text"  pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>
+            Contrato
+        </th>
+        <th>
+            Submercado
+        </th>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+          </th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+          <td>
+              {{rowData['contratos'].nome}}
+          </td>
+          <td>
+              {{rowData['submercado'].regiao}}
+          </td>
+          <td *ngFor="let col of columns">
+              {{rowData[col.field]}}
+          </td>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="summary" let-rowData>
+      <div style="text-align:left">
+          <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
+      </div>
+  </ng-template>    
+</p-table>
+
+<p-dialog header="Editar Produtos" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '500px'}">
+  <div class="p-grid ui-fluid" *ngIf="selectedunidade">
+      <div class="p-col-12">
+          <label for="contraparte">Contrato</label>
+      </div>
+      <div class="p-col-12">
+        <p-dropdown  class="ui-g-12" [options]="ContraPartes" [(ngModel)]="selectedunidade.contratos" 
+          placeholder="Selecione o Contrato" [autoWidth]="true" filter="true"  
+          styleClass = "drop95" optionLabel="nome"></p-dropdown>
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="submercados">Sub Mercados</label>
+      </div>
+      <div class="p-col-12">
+        <p-dropdown  class="ui-g-12" [options]="Submercados" [(ngModel)]="selectedunidade.submercado" 
+          placeholder="Selecione o Submercado" [autoWidth]="true" filter="true"  
+          styleClass = "drop95" optionLabel="regiao"></p-dropdown>
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="tipoDeEnergia">Tipo de Energia</label>
+      </div>
+      <div class="p-col-12">
+          <input pInputText id="tipoDeEnergia" [(ngModel)]="selectedunidade.tipoDeEnergia" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="DataInicioFornecimento">Início do Fornecimento</label>
+      </div>
+      <div class="p-col-12">
+          <input pInputText id="DataInicioFornecimento" [(ngModel)]="selectedunidade.DataInicioFornecimento" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="DataFimFornecimento">Fim do Fornecimento</label>
+      </div>
+      <div class="p-col-12">
+          <input pInputText id="DataFimFornecimento" [(ngModel)]="selectedunidade.DataFimFornecimento" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="MesDeReajuste">Mês de Reajuste</label>
+      </div>
+      <div class="p-col-12">
+          <input pInputText id="MesDeReajuste" [(ngModel)]="selectedunidade.MesDeReajuste" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="flexibilidade">Flexibilidade (%)/100</label>
+      </div>
+      <div class="p-col-12">
+          <input type="number" pInputText id="flexibilidade" [(ngModel)]="selectedunidade.flexibilidade" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="sazonalidade">Sazonalidade (%)/100</label>
+      </div>
+      <div class="p-col-12">
+          <input  type="number" pInputText id="sazonalidade" [(ngModel)]="unidade.sazonalidade" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="modulacao">Modulação (%)/100</label>
+      </div>
+      <div class="p-col-12">
+          <input type="number" pInputText id="modulacao" [(ngModel)]="unidade.modulacao" />
+      </div>
+      <br>
+      <div class="p-col-12">
+          <label for="volumeTotal">Volume (MWm)</label>
+      </div>
+      <div class="p-col-12">
+          <input type="number" pInputText id="volumeTotal" [(ngModel)]="unidade.volumeTotal" />
+      </div>
+      
+  </div>
+  <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix ui-g-12">
+          <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
+          <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
+      </div>
+  </p-footer>
+</p-dialog>
+

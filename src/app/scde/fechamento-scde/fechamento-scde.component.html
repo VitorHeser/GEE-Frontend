@@ -1,0 +1,39 @@
+<div class="ui-g-2">
+  <p-selectButton (onChange)="trocandotipo()" [options]="tiposDeExtracao" [(ngModel)]="tipoSelecionado"></p-selectButton>
+</div>
+<div class="ui-g-3">
+  <div class="ui-g-3">
+    Início
+  </div>
+  <div class="ui-g-9">
+    <p-calendar class="ui-g-12" [(ngModel)]="date1" *ngIf="visualizar"
+    view="{{formatoview}}" dateFormat="{{formatodedata}}" [showTime]="campodehora"
+    ></p-calendar>
+  </div>
+</div>
+<div class="ui-g-3">
+  <div class="ui-g-3">
+    Fim
+  </div>
+  <div class="ui-g-9">
+    <p-calendar class="ui-g-12" [(ngModel)]="date2" *ngIf="visualizar"
+    view="{{formatoview}}" dateFormat="{{formatodedata}}" [showTime]="campodehora"
+    ></p-calendar>
+  </div>
+</div>
+<div class="ui-g-3">
+  <p-multiSelect  class="ui-g-12"  [options]="unidadesLista" [(ngModel)]="unidadesSelecionadas"
+  defaultLabel="Selecione a Unidade"  filter="true"  
+    styleClass = "drop95" ></p-multiSelect>
+</div>
+
+<div class="ui-g-12">
+  <div class="ui-g-6" *ngFor="let obj of unidadesSelecionadas">
+    <app-fechamento-scdequadrado class="ui-g-12 card" 
+    [grupo]="obj"
+    [tipoSelecionado]="tipoSelecionado"
+    [date1]="date1"
+    [date2]="date2"
+    ></app-fechamento-scdequadrado>
+  </div>
+</div>
