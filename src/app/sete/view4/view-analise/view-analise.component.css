@@ -1,0 +1,18 @@
+.barradeProgressoTag{
+    margin-top:-18px; 
+    margin-left: 15px; 
+    font-size: 10px; 
+    position: relative; 
+    font-weight: bold;
+}
+.titulo1{
+    background-color: darkblue !important; 
+    color: white !important; 
+    text-align: center !important; 
+    border: 1px solid #ddd !important; 
+}
+.titulo2{
+    background-color: #bcbde4 !important; 
+    text-align: center !important; 
+    border: 1px solid #ddd !important; 
+}

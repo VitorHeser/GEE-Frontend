@@ -1,0 +1,52 @@
+<div class="card ui-g">
+  <div class="ui-g-12"><h2>
+    Comparativo de Versões
+  </h2></div>
+  <div class="ui-g-11">
+    <div class="ui-g-6">
+        <p-dropdown  class="ui-g-12" [options]="versoes" [(ngModel)]="versao1" 
+        placeholder="Selecione a Versão Principal" [autoWidth]="true" filter="true"  
+        styleClass = "drop95" optionLabel="descricao"></p-dropdown>
+    </div>
+    <div class="ui-g-6">
+        <p-dropdown  class="ui-g-12" [options]="versoes" [(ngModel)]="versao2" 
+        placeholder="Selecione a Versão a Comparar" [autoWidth]="true" filter="true"  
+        styleClass = "drop95" optionLabel="descricao"></p-dropdown>
+    </div>
+  </div>
+  <div class="ui-g-1" style="text-align: right; margin-top: -30px;">
+    <p-button label="Procurar" (click)="CalcularEmVersoes()"></p-button>
+  </div>
+</div>
+
+<div class="card ui-g" *ngIf="CompararOk" >
+  <div class="ui-g-12">
+    <div class="ui-g-6"></div>
+    <div class="ui-g-6">
+      <div class="ui-g-6" style="text-align: right;">
+        Escolha a Empresa
+      </div>
+      <div class="ui-g-6">
+        <p-multiSelect  class="ui-g-12"  [options]="empresas" [(ngModel)]="empresasSelecionadas"
+        defaultLabel="Selecione as Empresas"  filter="true"  optionLabel="empresa" (onChange)="reload()"
+        styleClass = "drop95" ></p-multiSelect>
+      </div>
+    </div>
+  </div>
+
+  <div *ngFor="let dados of ArraysVersoes, let i=index">
+    <div class="ui-g-12" 
+        style="font-size: 25px;  
+        margin-top: 15px; " >
+      <font style="font-weight: bold; ">{{i==0 ? "Comparativo (Ponto Percentual)" : ArraysVersoestitles[i].descricao}}</font>
+      <font style="font-size: 15px; "> v{{i==0 ? "" : ArraysVersoestitles[i].versao }}</font> 
+    </div>
+      <app-view-analise   
+        *ngIf="reloadTables"
+        [ano]="ano" 
+        [calculos]="dados" 
+        [empresas]="empresasSelecionadas" 
+        [tipoDeDados]="i" 
+      ></app-view-analise>
+  </div>
+</div>

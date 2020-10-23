@@ -1,0 +1,52 @@
+<div class="ui-g-2">
+  <p-selectButton (onChange)="trocandotipo()" [options]="tiposDeExtracao" [(ngModel)]="tipoSelecionado"></p-selectButton>
+</div>
+<div class="ui-g-3">
+  <div class="ui-g-3">
+    Início
+  </div>
+  <div class="ui-g-9">
+    <p-calendar class="ui-g-12" [(ngModel)]="date1" *ngIf="visualizar"
+    view="{{formatoview}}" dateFormat="{{formatodedata}}" [showTime]="campodehora"
+    ></p-calendar>
+  </div>
+</div>
+<div class="ui-g-3">
+  <div class="ui-g-3">
+    Fim
+  </div>
+  <div class="ui-g-9">
+    <p-calendar class="ui-g-12" [(ngModel)]="date2" *ngIf="visualizar"
+    view="{{formatoview}}" dateFormat="{{formatodedata}}" [showTime]="campodehora"
+    ></p-calendar>
+  </div>
+</div>
+<div class="ui-g-3">
+  <p-dropdown  class="ui-g-12" [options]="unidadesLista" [(ngModel)]="unidadeSelecionada" 
+  placeholder="Selecione a Unidade" [autoWidth]="true" filter="true"  
+  styleClass = "drop95" optionLabel="localDeInstalacao"></p-dropdown>
+</div>
+<div class="ui-g-1">
+  <button pButton id="user-button" type="button" icon="ui-icon-search" 
+  (click)="carregarDados()" class="secondary"></button>
+</div>
+<div *ngIf="GraficoVisible"  class="ui-g-12">
+
+  <app-graficosscde class="ui-g-12" *ngIf="GraficoVisible"  [tamanho]="'600px'" [dados]="arrayParaGrafico"></app-graficosscde>
+  <div class="ui-g-2">
+    <div class="ui-g-12"  style="
+    border: 3px solid black;
+    border-radius: 25px;
+    text-align: center;
+    "> {{ RealizadoAtivo }}</div>
+    <div class="ui-g-12" style="text-align: center;">Energia Ativa (kWh)</div>
+  </div>
+  <!-- <div class="ui-g-2">
+    <div class="ui-g-12"  style="
+    border: 3px solid black;
+    border-radius: 25px;
+    text-align: center;
+    "> {{ RealizadoReativo }}</div>
+    <div class="ui-g-12" style="text-align: center;">Energia Reativa (kVArh)</div>
+  </div> -->
+</div>

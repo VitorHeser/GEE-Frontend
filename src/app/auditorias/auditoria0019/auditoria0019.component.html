@@ -1,0 +1,76 @@
+<div class="ui-g-12 card">
+  <div class="ui-g-2">
+    <h3>Inicio</h3>
+    <p-calendar class="ui-g-12"  dateFormat="dd/mm/yy" [(ngModel)]="date1"
+    view="month" dateFormat="mm/yy" [showTime]="false"></p-calendar>
+  </div>
+  <div class="ui-g-2">
+    <h3>Fim:</h3>
+    <p-calendar class="ui-g-12" dateFormat="dd/mm/yy" [(ngModel)]="date2"
+    view="month" dateFormat="mm/yy" [showTime]="false"></p-calendar>
+  </div>
+  <div class="ui-g-2">
+    <h3>Unidade de Negócio:</h3>
+    <p-dropdown  class="ui-g-12" [options]="UndNeg" [(ngModel)]="UndNegSelect" 
+    [autoWidth]="true" filter="true"   (onChange)="SelecionarEquip()"
+    styleClass = "drop95" ></p-dropdown>
+  </div>
+  <div class="ui-g-4">
+    <h3>Local de Instalação:</h3>
+    <p-multiSelect  class="ui-g-12"  [options]="Eqps" [(ngModel)]="EqpsSelect"
+    defaultLabel="Todos"  filter="true"  
+      styleClass = "drop95" ></p-multiSelect>
+  </div>
+  <div class="ui-g-12" style="text-align: right; margin-top: -30px;">
+    <p-button label="Procurar" (click)="Procurar()"></p-button>
+  </div>
+</div>
+<p-progressBar  *ngIf="carregando==true && loading==true" mode="indeterminate"></p-progressBar>
+<div class="ui-g-12" *ngIf="carregando==true && loading==false">
+  <div class="ui-g-12 card">
+    <p-dropdown  class="ui-g-4" [options]="ListaDeIndicadores" [(ngModel)]="indicadorInicial" 
+    [autoWidth]="true" filter="true" styleClass = "drop95" (onChange)="converterarremobj()" ></p-dropdown>
+    
+    <div class="ui-g-8" style="text-align: right;">
+      <div class="ui-g-2" style="text-align: right;">
+        <p-toggleButton [(ngModel)]="suprimirZeros" (onChange)="converterarremobj()" onLabel="Sem Zeros" offLabel="Suprimir Zeros" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'100%'}"></p-toggleButton>
+      </div>
+      <div class="ui-g-2" style="text-align: right;">
+        <p-toggleButton [(ngModel)]="pintarZeros" (onChange)="converterarremobj()" onLabel="Cxs. Pintadas" offLabel="Pintar Caixas" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'100%'}"></p-toggleButton>
+      </div>
+      <div class="ui-g-2" style="text-align: right;">
+        <button pButton label="Análise 01" style="width: 100% !important" (click)="DialogAnalise1=true"  pTooltip="Lista de unidades que apresentaram algum valor 0 depois de ter alguma medição, durante o período"></button>
+      </div>
+      <div class="ui-g-2" style="text-align: right;">
+        <button pButton label="Análise 02" style="width: 100% !important" (click)="DialogAnalise2=true"  pTooltip="Aplicação de desvio padrão sobre a média"></button>
+      </div>
+      <div class="ui-g-4" style="text-align: right;">
+        <button type="button" pButton icon="pi pi-file-excel" label="Extrair CSV" (click)="extraircsv()" class="ui-button-success"></button>
+      </div>
+    </div>
+  </div>
+  <app-tabela-de-dados *ngIf="loading==false"  [Cols]="Cols"  [ColsFrozen]="ColsFrozen"  [pintarZeros]="pintarZeros"  [dadosDoArrayObj]="dadosDoArrayObj"></app-tabela-de-dados>
+</div>
+<p-dialog  #dial1 (onShow)="showDialogMaximized(dial1)" (onClose)="DialogAnalise1==false" 
+    [maximizable]="true" [(visible)]="DialogAnalise1" *ngIf="DialogAnalise1"> 
+    <app-analise01-rel19  
+    [data1]="dataAtualFormatada(date1)"  
+    [data2]="dataAtualFormatada(date2)" 
+    [dadosDoArray]="dadosDoArray"
+    [dadosDoArray2]="dadosDoArrayObj"
+    [valor]="indicadorInicial"
+    [Cols]="Cols"
+    
+    ></app-analise01-rel19>
+</p-dialog>
+<p-dialog  #dial2 (onShow)="showDialogMaximized(dial2)" (onClose)="DialogAnalise2==false" 
+    [maximizable]="true" [(visible)]="DialogAnalise2" *ngIf="DialogAnalise2"> 
+    <app-analise02-rel19  
+      [data1]="dataAtualFormatada(date1)"  
+      [data2]="dataAtualFormatada(date2)" 
+      [dadosDoArray]="dadosDoArray"
+      [dadosDoArray2]="dadosDoArrayObj"
+      [valor]="indicadorInicial"
+      [Cols]="Cols"
+    ></app-analise02-rel19>
+</p-dialog>

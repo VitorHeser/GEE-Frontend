@@ -1,0 +1,86 @@
+
+<div class="ui-g">
+  <div class="ui-g-12" *ngIf="carregando==false" >
+    <div class="ui-g-10 card"> 
+      <div class="ui-g-12" style="font-size: 30px; font-weight: bold;">Referência {{refParaFaturas2}}</div>
+      <div class="ui-g-12" style="margin-left:20px;font-size: 25px; font-weight: bold;">Mostrando {{QtdTotal}} registros não lançados</div>
+    </div>
+    <div class="ui-g-2" style="margin-top: -10px;"> 
+      <div class="ui-g-12" style="margin-left:-16px; font-size: 15px; font-weight: bold;">
+        <div style="background-color: rgb(65, 65, 65) !important; color: white; width: 120px; height: 25px; border-radius: 3px 3px 3px 3px; text-align: center;">
+          <font style="margin-top: 5px;">
+            Vencida:      {{QtdVencida}}
+          </font>
+        </div>  
+      </div>
+      <div class="ui-g-12" style="margin-left:-19px; font-size: 15px; font-weight: bold;">
+        <p-message severity="error"    text="Próximo de Vencimento:      {{QtdVencimento}}"></p-message>  
+      </div>
+      <div class="ui-g-12" style="margin-left:-19px; font-size: 15px; font-weight: bold;">
+        <p-message severity="warn"    text="Pendente Lançamento:        {{QtdPendente}}"></p-message>  
+      </div>
+      <div class="ui-g-12" style="margin-left:-19px; font-size: 15px; font-weight: bold;">
+        <p-message severity="info"    text="Ficará Disponível em Breve: {{QtdEmBreve}}"></p-message>  
+      </div>
+      <div class="ui-g-12" style="margin-left:-19px; font-size: 15px; font-weight: bold;">
+        <p-message severity="success" text="No Prazo:                   {{QtdPrazo}}"></p-message>  
+      </div>
+    </div>
+  </div>
+
+  <p-progressBar class="ui-g-12" *ngIf="carregando==true" mode="indeterminate"></p-progressBar>
+  <div class="ui-g-12" >
+    <p-table #dt [columns]="cols" [value]="lancamentos"  *ngIf="carregando==false"  [paginator]="true" [rows]="20" [showCurrentPageReport]="true">
+      <ng-template pTemplate="colgroup" let-columns>
+          <colgroup>
+              <col style="width: 100px;">
+              <col style="width: 100px;">
+              <col style="width: 120px;">
+              <col style="width: 60px;">
+              <col style="width: 150px;">
+              <col style="width: 100px;">
+              <col style="width: 60px;">
+              <col style="width: 100px;">
+              <col style="width: 100px;">
+              <col style="width: 200px;">
+          </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns >
+        <tr>
+          <th *ngFor="let col of columns" style="text-align: center;">
+            <p-calendar *ngIf="col.field=='referencia'" view="month" (onSelect)="onDateSelect($event)" [showButtonBar]="true" [(ngModel)]="refParaFaturas2"  styleClass="ui-column-filter" placeholder="Referência" [readonlyInput]="true" dateFormat="mm/yy"></p-calendar>
+            <p-multiSelect *ngIf="col.field=='status'" styleClass = "drop95"  [options]="status" defaultLabel="Status" [(ngModel)]="filtros" (onChange)="onMultiselectChange($event,'status')"></p-multiSelect>
+            <p-multiSelect *ngIf="col.field=='unidade'" styleClass = "drop95"  [options]="unidadesDeNegocio" defaultLabel="Unidade de Negócio" [(ngModel)]="unidadesDeNegocioS" (onChange)="onMultiselectChange($event,'unidade')"></p-multiSelect>
+            <p-multiSelect *ngIf="col.field=='classe'" styleClass = "drop95"  [options]="classesTarifarias" defaultLabel="Classe" [(ngModel)]="classesTarifariasS" (onChange)="onMultiselectChange($event,'classe')"></p-multiSelect>
+          </th>
+        </tr>
+        <tr>
+          <th *ngFor="let col of columns" style="text-align: center;" [pSortableColumn]="col.field">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr style="size: 10px">
+          <td *ngFor="let col of columns" style="text-align: center;">
+            <div *ngIf="col.field != 'status'">
+              {{rowData[col.field]}}
+            </div>
+            <div *ngIf="col.field == 'status'" class="ui-g-12" style="text-align: center; vertical-align:middle; display:table-cell; width: 100%;">
+              <div style="background-color: rgb(65, 65, 65) !important; color: white; width: 100px; height: 25px; border-radius: 3px 3px 3px 3px; margin-left: 34%;"  *ngIf="rowData[col.field]=='Vencida'">
+                <font style="margin-top: 5px;">
+                  {{rowData[col.field]}}
+                </font>
+              </div>  
+              <p-message severity="success" text="{{rowData[col.field]}}" *ngIf="rowData[col.field]=='No Prazo'"></p-message>  
+              <p-message severity="info" text="{{rowData[col.field]}}" *ngIf="rowData[col.field]=='Ficara Disponivel em Breve'"></p-message>  
+              <p-message severity="warn" text="{{rowData[col.field]}}" *ngIf="rowData[col.field]=='Pendente de Lancamento'"></p-message>  
+              <p-message severity="error" text="{{rowData[col.field]}}" *ngIf="rowData[col.field]=='Proximo do Vencimento'"></p-message>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

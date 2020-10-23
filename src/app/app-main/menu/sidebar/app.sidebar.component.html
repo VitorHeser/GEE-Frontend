@@ -1,0 +1,74 @@
+<div class="layout-sidebar" [ngStyle]="{'overflow':app.sidebarActive ? 'hidden' : 'visible'}"
+                            (click)="app.onSidebarClick($event)">
+                            <!-- [ngClass]="{'layout-sidebar-dark':app.darkMenu}"  -->
+    <div class="layout-tabmenu">
+        <ul class="layout-tabmenu-nav">
+            <li [ngClass]="{'active-item':app.activeTabIndex === 0}">
+                <a href="#" class="ripplelink tabmenuitem-link" (click)="app.onTabClick($event, 0)"><i class="material-icons">home</i></a>
+                <div class="layout-tabmenu-tooltip">
+                    <div class="layout-tabmenu-tooltip-arrow"></div>
+                    <div class="layout-tabmenu-tooltip-text">Features</div>
+                </div>
+            </li>
+            <li [ngClass]="{'active-item':app.activeTabIndex === 1}">
+                    <a href="#" class="ripplelink tabmenuitem-link" (click)="app.onTabClick($event, 1)"><i class="material-icons">apps</i></a>
+                    <div class="layout-tabmenu-tooltip">
+                        <div class="layout-tabmenu-tooltip-arrow"></div>
+                        <div class="layout-tabmenu-tooltip-text">Features</div>
+                    </div>
+                </li>
+            <li [ngClass]="{'active-item':app.activeTabIndex === 3}">
+                <a href="#" class="ripplelink tabmenuitem-link" (click)="app.onTabClick($event, 3)"><i class="material-icons">local_printshop</i></a>
+                <div class="layout-tabmenu-tooltip">
+                    <div class="layout-tabmenu-tooltip-arrow"></div>
+                    <div class="layout-tabmenu-tooltip-text">Calendar</div>
+                </div>
+            </li>
+        </ul>
+
+                
+        <div class="layout-tabmenu-contents">
+                <div class="layout-tabmenu-content" [ngClass]="{'layout-tabmenu-content-active': app.activeTabIndex === 0}">
+                    <div class="layout-submenu-title clearfix">
+                        <span>Área de trabalho</span>
+                        <a href="#" class="menu-button material-icons" (click)="app.closeSidebar($event)">menu</a>
+                    </div>
+
+                    <app-sidebarTabContent>
+                        <div class="projects-tab">
+                            <ul>
+                                <li class="clearfix">
+                                    <a routerLink='/' (click)="app.onTopbarSubItemClick($event)">
+                                        <i class="material-icons">dashboard</i>
+                                        <span class="project-title" >Dashboard</span>
+                                        <!-- style="color:#F5F5F5 !important;" -->
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </app-sidebarTabContent>
+                </div>
+                <div class="layout-tabmenu-content" [ngClass]="{'layout-tabmenu-content-active': app.activeTabIndex === 1}">
+                    <div class="layout-submenu-title clearfix">
+                        <span>Módulos</span>
+                        <a href="#" class="menu-button material-icons" (click)="app.closeSidebar($event)">menu</a>
+                    </div>
+                    <app-sidebarTabContent>
+                        <app-menu></app-menu>
+                    </app-sidebarTabContent>
+                </div>
+
+
+            <!-- <div class="layout-tabmenu-content" [ngClass]="{'layout-tabmenu-content-active': app.activeTabIndex === 3}">
+                <div class="layout-submenu-title clearfix">
+                    <span>Relatórios</span>
+                    <a href="#" class="menu-button material-icons" (click)="app.closeSidebar($event)">menu</a>
+                </div>
+                <app-sidebarTabContent> 
+                         
+                </app-sidebarTabContent>
+            </div> -->
+
+        </div>
+    </div>
+</div>

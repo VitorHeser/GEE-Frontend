@@ -1,0 +1,2 @@
+<p-progressBar class="ui-g-12" *ngIf="carregando==false" mode="indeterminate"></p-progressBar>
+<p-chart *ngIf="carregando" class="chart" type="bar" [data]="data" [options]="options" widht="100%" height="350px"></p-chart>

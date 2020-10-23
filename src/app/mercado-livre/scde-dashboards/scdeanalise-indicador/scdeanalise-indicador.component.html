@@ -1,0 +1,76 @@
+<div class="ui-g-12 Titulo" *ngIf="carregando==false">
+  Consumo (kWh) - {{UnidadeConsumidora.unidade.unidade}}
+</div>
+<div class="ui-g-12" *ngIf="carregando==false">
+  <app-scdegrafico-acumulado-indicador [tipo]="tipo" [unidade]="UnidadeConsumidora" [ref]="data"></app-scdegrafico-acumulado-indicador>
+</div>
+
+
+<div class="ui-g-12 Titulo" *ngIf="carregando==false">
+  Resumo Analítico
+</div>
+<div class="ui-g-12" *ngIf="carregando==false">
+  <div class="ui-g-4">
+    <p-panel class="ui-g">
+      <p-header>
+        Acumulado Mensal 
+      </p-header> 
+      <div class="ui-g-4">{{dataFormat(datan) }}:</div><div class="ui-g-4">{{valorFormatado(UnidadeConsumidora.consumoAtual/1000)}} MWh</div><div class="ui-g-4">R$ {{valorFormatado((UnidadeConsumidora.consumoAtual*UnidadeConsumidora.preco)/1000)}}</div>
+      <div class="ui-g-4">{{dataFormat2(datan)}}:</div><div class="ui-g-4">{{valorFormatado(UnidadeConsumidora.consumoAnterior/1000)}} MWh</div><div class="ui-g-4">R$ {{valorFormatado((UnidadeConsumidora.consumoAnterior*UnidadeConsumidora.preco)/1000)}}</div>
+      <div class="ui-g-4">Variação:</div><div class="ui-g-8">{{
+        valorFormatado((UnidadeConsumidora.consumoAtual-UnidadeConsumidora.consumoAnterior) < 0 
+        ? -(UnidadeConsumidora.consumoAtual-UnidadeConsumidora.consumoAnterior) 
+        : (UnidadeConsumidora.consumoAtual-UnidadeConsumidora.consumoAnterior))}}</div>
+      <div class="ui-g-4">Variação (%):</div>
+      <div class="ui-g-4">
+        <div class="ui-g-6">
+          {{valorFormatado((1-(UnidadeConsumidora.consumoAtual/UnidadeConsumidora.consumoAnterior))*-100)}} %
+        </div>
+        <div class="ui-g-6">
+          <i class="ui-icon-arrow-upward"   style="color: red;" *ngIf="UnidadeConsumidora.consumoAtual>UnidadeConsumidora.consumoAnterior"></i>
+          <i class="ui-icon-arrow-downward" style="color: green;" *ngIf="UnidadeConsumidora.consumoAtual<=UnidadeConsumidora.consumoAnterior"></i> 
+        </div>
+      </div>
+    </p-panel >
+  </div>
+  <div class="ui-g-4">
+    <p-panel  class="ui-g">
+      <p-header>
+        Acumulado Anual
+      </p-header> 
+      <div class="ui-g-4">{{Ano(datan,0)}}:</div><div class="ui-g-4">{{valorFormatado(UnidadeConsumidora.anoAtual/1000)}} MWh</div><div class="ui-g-4">R$ {{valorFormatado((UnidadeConsumidora.anoAtual*UnidadeConsumidora.preco)/1000)}}</div>
+      <div class="ui-g-4">{{Ano(datan,1)}}:</div><div class="ui-g-4">{{valorFormatado(UnidadeConsumidora.anoAnterior/1000)}} MWh</div><div class="ui-g-4">R$ {{valorFormatado((UnidadeConsumidora.anoAnterior*UnidadeConsumidora.preco)/1000)}}</div>
+      <div class="ui-g-4">Variação:</div><div class="ui-g-8">{{valorFormatado((UnidadeConsumidora.anoAtual-UnidadeConsumidora.anoAnterior) < 0 ? -(UnidadeConsumidora.anoAtual-UnidadeConsumidora.anoAnterior) :(UnidadeConsumidora.anoAtual-UnidadeConsumidora.anoAnterior))}}</div>
+      <div class="ui-g-4">Variação (%):</div>
+      <div class="ui-g-4">
+        <div class="ui-g-6">
+          {{valorFormatado((1-(UnidadeConsumidora.anoAtual/UnidadeConsumidora.anoAnterior))*-100)}} %
+        </div>
+        <div class="ui-g-6">
+          <i class="ui-icon-arrow-upward"   style="color: red;" *ngIf="UnidadeConsumidora.anoAtual>UnidadeConsumidora.anoAnterior"></i>
+          <i class="ui-icon-arrow-downward" style="color: green;" *ngIf="UnidadeConsumidora.anoAtual<=UnidadeConsumidora.anoAnterior"></i> 
+        </div>
+      </div>
+    </p-panel >
+  </div>
+  <div class="ui-g-4">
+    <p-panel  class="ui-g">
+      <p-header>
+        Acumulado {{UnidadeConsumidora.ciclos}} Meses
+      </p-header> 
+      <div class="ui-g-4">Atual:</div><div class="ui-g-4">{{valorFormatado(UnidadeConsumidora.ultimosMesesAtual/1000)}} MWh</div>      <div class="ui-g-4">R$ {{valorFormatado((UnidadeConsumidora.ultimosMesesAtual*UnidadeConsumidora.preco)/1000)}}</div>
+      <div class="ui-g-4">Anterior:</div><div class="ui-g-4">{{valorFormatado(UnidadeConsumidora.ultimosMesesAnterior/1000)}} MWh</div><div class="ui-g-4">R$ {{valorFormatado((UnidadeConsumidora.ultimosMesesAnterior*UnidadeConsumidora.preco)/1000)}}</div>
+      <div class="ui-g-4">Variação:</div><div class="ui-g-8">{{valorFormatado((UnidadeConsumidora.ultimosMesesAtual-UnidadeConsumidora.ultimosMesesAnterior) < 0 ? -(UnidadeConsumidora.ultimosMesesAtual-UnidadeConsumidora.ultimosMesesAnterior) :(UnidadeConsumidora.ultimosMesesAtual-UnidadeConsumidora.ultimosMesesAnterior))}}</div>
+      <div class="ui-g-4">Variação (%):</div>
+      <div class="ui-g-4">
+        <div class="ui-g-6">
+          {{valorFormatado((1-(UnidadeConsumidora.ultimosMesesAtual/UnidadeConsumidora.ultimosMesesAnterior))*-100)}} %
+        </div>
+        <div class="ui-g-6">
+          <i class="ui-icon-arrow-upward"   style="color: red;" *ngIf="UnidadeConsumidora.ultimosMesesAtual>UnidadeConsumidora.ultimosMesesAnterior"></i>
+          <i class="ui-icon-arrow-downward" style="color: green;" *ngIf="UnidadeConsumidora.ultimosMesesAtual<=UnidadeConsumidora.ultimosMesesAnterior"></i> 
+        </div>
+      </div>
+    </p-panel >
+  </div>
+</div>

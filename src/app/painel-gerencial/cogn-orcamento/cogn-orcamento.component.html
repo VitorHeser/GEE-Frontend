@@ -1,0 +1,81 @@
+<div class="ui-g-12 card">
+  <div class="ui-g-2">
+      <h3>Inicio</h3>
+      <p-calendar class="ui-g-12"  dateFormat="mm/yy" view="month" [(ngModel)]="date1"></p-calendar>
+  </div>
+  <div class="ui-g-2">
+    <h3>Fim:</h3>
+    <p-calendar class="ui-g-12" dateFormat="mm/yy" view="month" [(ngModel)]="date2"></p-calendar>
+  </div>
+  <div class="ui-g-2">
+    <h3>Unidade:</h3>
+    <p-dropdown  class="ui-g-12" [options]="Empresas" [(ngModel)]="EmpresaSelected" 
+    [autoWidth]="true" filter="true"  
+    styleClass = "drop95"></p-dropdown>
+  </div>
+  <div class="ui-g-2">
+    <h3>Versões:</h3>
+    <p-dropdown  class="ui-g-12" [options]="Versoes" [(ngModel)]="VersoesSelected" 
+    [autoWidth]="true" filter="true"  
+    styleClass = "drop95"  optionLabel="versao"></p-dropdown>
+  </div>
+  <div class="ui-g-4"  style="text-align: right; ">
+    <div class="ui-g-12">
+      <p-selectButton [options]="caixaDeSelecao" (onChange)="criarArrayDoGrafico()" [(ngModel)]="AguaEsgoSelect"></p-selectButton>
+    </div>
+    <div class="ui-g-12">
+      <p-button label="Procurar" (click)="carregar()"></p-button>
+    </div>
+  </div>
+</div>
+<p-progressBar  class="ui-g-12" *ngIf="carregando==true" mode="indeterminate"></p-progressBar>
+<div class="ui-g-12 card" *ngIf="calculoscarregados==true && carregando==false">
+  <div class="ui-g-2">
+    <h3>Indicador:</h3>
+    <p-dropdown  class="ui-g-12"  (onChange)="carregarGraph()" [options]="SelecaoIndicadores" [(ngModel)]="IndicadorSelect" 
+    [autoWidth]="true" filter="true"  
+    styleClass = "drop95" ></p-dropdown>
+  </div>
+  <div class="ui-g-6"></div>
+  <div class="ui-g-4" style="text-align: center;">
+    <div class="ui-g-12"  style="font-weight: bold; background-color: lightblue; ">
+      <div class="ui-g-6" style="text-align: left;">
+        Tipo:
+      </div>
+      <div class="ui-g-3">
+        Soma
+      </div>
+      <div class="ui-g-3">
+        Média
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-6" style="text-align: left;">
+        Total Orçado: 
+      </div>
+      <div class="ui-g-3">
+        {{totalOrcadoSoma.toLocaleString('pt-BR')}}
+      </div>
+      <div class="ui-g-3">
+        {{totalOrcadoMedia.toLocaleString('pt-BR')}}
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-6" style="text-align: left;">
+        Total Realizado: 
+      </div>
+      <div class="ui-g-3">
+        {{totalRealizadoSoma.toLocaleString('pt-BR')}} <br><font size="1px">Δ ({{ totalSomaDelta }})</font>
+      </div>
+      <div class="ui-g-3">
+        {{totalRealizadoMedia.toLocaleString('pt-BR')}} <br> <font size="1px">Δ ({{ totalMediaDelta }})</font>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <app-graficos *ngIf="carregarGrafico" [tamanho]="'530px'" [tendencia]="false"  
+    [limites]="false" [Volumes]="false" 
+    [DadosAux]="DadosAux" [indicador]="indicador"  class="ui-g-12"></app-graficos>
+  </div>
+
+</div>

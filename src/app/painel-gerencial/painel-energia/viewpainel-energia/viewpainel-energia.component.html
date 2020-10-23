@@ -1,0 +1,75 @@
+<p-table class="ui-g-12" [value]="arrayDeObj" *ngIf="carregado" sortField="desviors" [sortOrder]="-1">
+    <ng-template pTemplate="header">
+        <tr >
+            <th>Grupo</th>
+            <th>Realizado</th>
+            <th>Orçado</th>
+            <th>Desvio (%)</th>
+            <th>Desvio (R$)</th>
+            <th>% Consumo Orç. Ano</th>
+            <th>Total Desvio Mês</th>
+            <th>Real. Ano Anterior</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-grupos>
+        <tr>
+            <td>{{grupos.grupo}}</td>
+            <td class="tdvalue">{{grupos.realizado==0 ? "-" :grupos.realizado.toLocaleString('pt-BR')}}</td>
+            <td class="tdvalue">{{grupos.orcado==0? "-" : grupos.orcado.toLocaleString('pt-BR')}}</td>
+            <td class="tdgrap">{{grupos.desvioporc == "0%" ? "-" :grupos.desvioporc }}</td>
+            <td class="tdgrap">{{grupos.desviors == 0 ? "-" : grupos.desviors.toLocaleString('pt-BR')}}</td>
+            <td class="tdgrap">{{consumporcAno(grupos.custoOrcadoAnoAtual,grupos.custoRealAnoAtual)}}</td>
+            <td class="tdgrap">{{desvioporcmes(grupos.desviors)}}</td>
+            <td class="tdgrap">{{grupos.custoRealAnoAnterior==0? "-" : grupos.custoRealAnoAnterior.toLocaleString('pt-BR')}}</td>
+            
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <th class="thfoot">Totais</th>
+        <th class="thfoot">{{total(arrayDeObj,'realizado').toLocaleString('pt-BR')}}</th>
+        <th class="thfoot">{{total(arrayDeObj,'orcado').toLocaleString('pt-BR')}}</th>
+        <th class="thfoot">{{desvioporc(total(arrayDeObj,'orcado'),total(arrayDeObj,'realizado'))}}</th>
+        <th class="thfoot">{{totaldesviors.toLocaleString('pt-BR')}}</th>
+        <th class="thfoot"></th>
+        <th class="thfoot"></th>
+        <th class="thfoot"></th>
+      </tr>
+    </ng-template>
+</p-table>
+
+<div class="ui-g-2">
+    <div class="ui-g-12 card">
+        <h4> Volume m³ </h4>
+        <p-chart class="chart" *ngIf="carregaGrafico2==false" type="bar" 
+        [data]="data2" 
+        [options]="options2"
+        widht="100%" height="300"></p-chart>
+    </div>
+</div>
+<div class="ui-g-2">
+    <div class="ui-g-12 card">
+        <h4> R$/M³ </h4>
+        <p-chart class="chart" *ngIf="carregaGrafico3==false" type="bar" 
+        [data]="data3" 
+        [options]="options3"
+        widht="100%" height="300"></p-chart>
+    </div>
+</div>
+<div class="ui-g-2">
+    <div class="ui-g-12 card">
+        <h4> Custo R$ </h4>
+        <p-chart class="chart" *ngIf="carregaGrafico1==false" type="bar" 
+        [data]="data1" 
+        [options]="options1"
+        widht="100%" height="300"></p-chart>
+    </div>
+</div>
+
+
+<!-- <div class="ui-g-4 card">
+    <p-chart class="chart" *ngIf="carregaGrafico2==false" type="bar" 
+    [data]="data2" 
+    [options]="options2"
+    widht="100%" height="300"></p-chart>
+</div> -->

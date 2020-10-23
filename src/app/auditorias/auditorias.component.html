@@ -1,0 +1,65 @@
+<div class="ui-g-12 card">
+    <div class="ui-g-12" style="margin-left: 13px;" >
+        <h1>Auditoria de Faturas</h1>
+    </div>
+    <div class="ui-g-12" >
+        <div class="ui-g-2" >
+            <h4>Mês Referência</h4>
+        </div>
+        <div class="ui-g-10" style="margin-top: 20px;" >
+            <p-calendar class="ui-g-12" [(ngModel)]="date1" (onSelect)="carregar()"
+                view="month" dateFormat="mm/yy" [showTime]="false"
+            ></p-calendar>
+        </div>
+    </div>
+    <div class="ui-g-12" style="margin-top: 25px;" *ngIf="showopt">
+        <p-carousel [value]="Opcoes" verticalViewPortHeight="330px" >
+            <ng-template let-car pTemplate="item">
+                <div class="ui-g">
+                    <div class="ui-g-12" style="text-align: center;" ><h1>{{car.nome}}</h1></div>
+                    <div class="ui-g-12" style="text-align: center;" ><h4>{{car.descricao}}</h4></div>
+                    <div class="ui-g-12" style="text-align: center;" ><h2>{{car.qtd}} Registros</h2></div>
+                    <div class="ui-g-12" style="text-align: center;">
+                        <button pButton type="button" class="ui-button-secondary" (click)="carregar(car)" icon="pi pi-search"></button>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>
+</div>
+<p-dialog  #dial1 (onShow)="showDialogMaximized(dial1)" (onClose)="carregadoTotal1==false" 
+    [maximizable]="true" [(visible)]="carregadoTotal1" *ngIf="carregadoTotal1"> 
+    <h1>{{Relatorio.nome}}</h1>
+    <h4>{{Relatorio.descricao}}</h4>
+    <app-auditoria01 *ngIf="carregadoTotal1" [data]="dataFormatada"  ></app-auditoria01>
+</p-dialog>
+<p-dialog  #dial2 (onShow)="showDialogMaximized(dial2)" (onClose)="carregadoTotal2==false" 
+    [maximizable]="true" [(visible)]="carregadoTotal2" *ngIf="carregadoTotal2"> 
+    <h1>{{Relatorio.nome}}</h1>
+    <h4>{{Relatorio.descricao}}</h4>
+    <app-auditoria02 *ngIf="carregadoTotal2" [data]="dataFormatada"  ></app-auditoria02>
+</p-dialog>
+<p-dialog  #dial3 (onShow)="showDialogMaximized(dial3)" (onClose)="carregadoTotal3==false" 
+    [maximizable]="true" [(visible)]="carregadoTotal3" *ngIf="carregadoTotal3"> 
+    <h1>{{Relatorio.nome}}</h1>
+    <h4>{{Relatorio.descricao}}</h4>
+    <app-auditoria03 *ngIf="carregadoTotal3" [data]="dataFormatada"  ></app-auditoria03>
+</p-dialog>
+<p-dialog  #dial4 (onShow)="showDialogMaximized(dial4)" (onClose)="carregadoTotal4==false" 
+    [maximizable]="true" [(visible)]="carregadoTotal4" *ngIf="carregadoTotal4"> 
+    <h1>{{Relatorio.nome}}</h1>
+    <h4>{{Relatorio.descricao}}</h4>
+    <app-auditoria04 *ngIf="carregadoTotal4" [data]="dataFormatada"  ></app-auditoria04>
+</p-dialog>
+<p-dialog  #dial5 (onShow)="showDialogMaximized(dial5)" (onClose)="carregadoTotal5==false" 
+    [maximizable]="true" [(visible)]="carregadoTotal5" *ngIf="carregadoTotal5"> 
+    <h1>{{Relatorio.nome}}</h1>
+    <h4>{{Relatorio.descricao}}</h4>
+    <app-auditoria05 *ngIf="carregadoTotal5" [data]="dataFormatada"  ></app-auditoria05>
+</p-dialog>
+<p-dialog  #dial6 (onShow)="showDialogMaximized(dial6)" (onClose)="carregadoTotal6==false" 
+    [maximizable]="true" [(visible)]="carregadoTotal6" *ngIf="carregadoTotal6"> 
+    <h1>{{Relatorio.nome}}</h1>
+    <h4>{{Relatorio.descricao}}</h4>
+    <app-auditoria06 *ngIf="carregadoTotal6" [data]="dataFormatada"  ></app-auditoria06>
+</p-dialog>

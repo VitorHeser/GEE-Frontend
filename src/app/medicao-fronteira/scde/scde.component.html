@@ -1,0 +1,63 @@
+<div class="ui-g-12 card">
+  <div class="ui-g-2">
+      <h3>Inicio</h3>
+      <p-calendar class="ui-g-12"  dateFormat="dd/mm/yy" [(ngModel)]="date1"></p-calendar>
+  </div>
+  <div class="ui-g-2">
+    <h3>Fim:</h3>
+    <p-calendar class="ui-g-12" dateFormat="dd/mm/yy" [(ngModel)]="date2"></p-calendar>
+  </div>
+  <div class="ui-g-2">
+    <h3>Unidade:</h3>
+    <p-multiSelect  class="ui-g-12"  [options]="unidades" [(ngModel)]="unidadesSelect"
+    defaultLabel="Selecione a Unidade"  filter="true" label="unidade"
+    styleClass = "drop95" ></p-multiSelect>
+  </div>
+  <div class="ui-g-12" style="text-align: right; margin-top: -30px;">
+    <p-button label="Procurar" (click)="Procurar()"></p-button>
+  </div>
+</div>
+
+<p-progressBar class="ui-g-12" *ngIf="carregando==true" mode="indeterminate"></p-progressBar>
+
+<p-table class="ui-g-12" #dt [value]="ArrayDeExtratos" *ngIf="carregando==false" [paginator]="true" [rows]="15">
+  <ng-template pTemplate="caption">
+      <div class="ui-helper-clearfix" style="text-align: left">
+        <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV" 
+        (click)="extraircsv()" class="ui-button-success"
+        style="float:right"></button>
+      </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>Data Hora</th>
+        <th>Origem</th>
+        <th>Medidor</th>
+        <th>Agente</th>
+        <th>Unidade</th>
+        <th>Ativa (kWh)</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData>
+      <tr [pSelectableRow]="rowData">
+          <td>
+              {{rowData['Timestamp']}}
+          </td>
+          <td>
+              {{rowData['origem']}}
+          </td>
+          <td>
+            {{rowData['medidor'].medidor}}
+          </td>
+          <td>
+            {{rowData['medidor'].agente}}
+          </td>
+          <td>
+            {{rowData['medidor'].unidade}}
+          </td>
+          <td>
+            {{rowData['ativa']}}
+          </td>
+      </tr>
+  </ng-template>
+</p-table>

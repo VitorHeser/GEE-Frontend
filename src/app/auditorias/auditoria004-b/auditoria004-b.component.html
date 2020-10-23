@@ -1,0 +1,62 @@
+<div class="ui-g-12 card">
+  <div class="ui-g-2">
+    <h3>Inicio</h3>
+    <p-calendar class="ui-g-12"  dateFormat="dd/mm/yy" [(ngModel)]="date1"
+    view="month" dateFormat="mm/yy" [showTime]="false"></p-calendar>
+  </div>
+  <div class="ui-g-2">
+    <h3>Fim:</h3>
+    <p-calendar class="ui-g-12" dateFormat="dd/mm/yy" [(ngModel)]="date2"
+    view="month" dateFormat="mm/yy" [showTime]="false"></p-calendar>
+  </div>
+  <div class="ui-g-4">
+    <h3>Unidades:</h3>
+    <p-multiSelect  class="ui-g-12"  [options]="unidades" [(ngModel)]="unidadesSelect"
+    defaultLabel="Todos"  filter="true"  
+      styleClass = "drop95" ></p-multiSelect>
+  </div>
+  <div class="ui-g-12" style="text-align: right; margin-top: -30px;">
+    <p-button label="Procurar" (click)="Procurar()"></p-button>
+  </div>
+</div>
+
+<p-progressBar class="ui-g-12"  *ngIf="carregando==true && loading==true" mode="indeterminate"></p-progressBar>
+
+<div class="ui-g-12"  *ngIf="carregando==true && loading==false"  >
+  <div class="ui-g-12" style="text-align: right;">
+    <button type="button" pButton icon="pi pi-file-excel" label="Extrair CSV" (click)="extraircsv()" class="ui-button-success"></button>
+  </div>
+  <p-table class="ui-g-12" [columns]="columns" [value]="dadosDoArray" dataKey="unidade">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th style="width: 3em"></th>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-index let-expanded="expanded" let-columns="columns">
+        <tr>
+            <td>
+                <a href="#" [pRowToggler]="rowData">
+                    <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                </a>
+            </td>
+            <td *ngFor="let col of columns" style="font-weight:bold;">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+      <tr>
+          <td [attr.colspan]="columns.length + 1">
+            <app-auditoria004v-view1 class="ui-g-12" [tipo]="1" [eixo]="eixo" [iform]="rowData"></app-auditoria004v-view1>
+            <app-auditoria004v-view1 class="ui-g-12" [tipo]="2" [eixo]="eixo" [iform]="rowData"></app-auditoria004v-view1>
+            <app-auditoria004v-view1 class="ui-g-12" [tipo]="3" [eixo]="eixo" [iform]="rowData"></app-auditoria004v-view1>
+            <app-auditoria004v-view1 class="ui-g-12" [tipo]="4" [eixo]="eixo" [iform]="rowData"></app-auditoria004v-view1>
+            <app-auditoria004v-view1 class="ui-g-12" [tipo]="5" [eixo]="eixo" [iform]="rowData"></app-auditoria004v-view1>
+          </td>
+        </tr>
+    </ng-template>
+  </p-table>
+</div>

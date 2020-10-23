@@ -1,0 +1,42 @@
+<p-table #dt [columns]="columns" class="ui-g-12" dataKey="indic" [value]="dados1" >
+
+  <ng-template pTemplate="header" let-columns *ngIf="tipo==1">  
+    <tr>
+      <th style="width: 3em"></th>
+      <th *ngFor="let col of columns"
+      style="width: '50px'; text-align: center">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns">
+      <tr>
+        <td style="width: 3em">
+            <a href="#" [pRowToggler]="rowData">
+                <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+            </a>
+        </td>
+        <td *ngFor="let col of columns, let i=index" style="font-size:10px !important; text-align: center;">
+            {{  rowData[col.field].toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}
+        </td>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+    <tr>
+      <td [attr.colspan]="columns.length + 1">
+        <p-table #dt [columns]="columns" [style]="{'width':'101%', 'margin-left':'-10px'}" dataKey="unidade" [value]="dados2" 
+          [scrollable]="true" >
+          <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns">
+            <tr>
+              <td style="width: 3em"></td>
+              <td *ngFor="let col of columns, let i=index" style="font-size:10px !important; text-align: center;">
+                  {{  rowData[col.field].toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+

@@ -1,0 +1,35 @@
+<p-table #dt class="ui-g-12" [style]="{height:'1000px'}" [columns]="Cols" 
+  [frozenColumns]="ColsFrozen" [value]="dadosDoArrayObj" [scrollable]="true"
+  [paginator]="true" [rows]="100" frozenWidth="800px">
+  <ng-template pTemplate="frozencolgroup" let-columns>
+      <colgroup>
+          <col style="width:150px">
+          <col style="width:90px">
+          <!-- <col style="width:70px"> -->
+          <col style="width:70px">
+      </colgroup>
+  </ng-template>
+  <ng-template pTemplate="colgroup" let-columns>
+      <colgroup>
+          <col *ngFor="let col of columns" style="width: 150px;">
+      </colgroup>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.field" 
+      style="width: '50px'; text-align: center">
+        {{col.header}}
+        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+          <td *ngFor="let col of columns, let i=index" style="font-size:10px !important; text-align: center;" 
+          [ngClass]="rowData[col.field]==0 ? pintarZeros == true ? 'zerados' : null : null"
+          pTooltip="">
+              {{  rowData[col.field].toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}
+          </td>
+      </tr>
+  </ng-template>
+</p-table>

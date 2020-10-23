@@ -1,0 +1,146 @@
+<p-table #dt [value]="empresas" *ngIf="loading" class="ui-g-12" >
+        
+  <ng-template pTemplate="header" style="font-size: 10px !important;">
+      <tr >
+          <th rowspan="2" class="titulo1" style="width: 200px;">Empresa</th>
+          <th rowspan="2" class="titulo1" style="width: 100px;">Dt.Reaj.</th>
+          <th colspan="5" class="titulo1">{{ano}}</th>
+          <th colspan="5" class="titulo1">{{ano+1}}</th>
+          <th colspan="5" class="titulo1">{{ano+2}}</th>
+          <th colspan="5" class="titulo1">{{ano+3}}</th>
+      </tr>
+      <tr>
+          <th class="titulo2">A2</th>
+          <th class="titulo2">A3</th>
+          <th class="titulo2">A4</th>
+          <th class="titulo2">B1</th>
+          <th class="titulo2">Média Pond.</th>
+          <th class="titulo2">A2</th>
+          <th class="titulo2">A3</th>
+          <th class="titulo2">A4</th>
+          <th class="titulo2">B1</th>
+          <th class="titulo2">Média Pond.</th>
+          <th class="titulo2">A2</th>
+          <th class="titulo2">A3</th>
+          <th class="titulo2">A4</th>
+          <th class="titulo2">B1</th>
+          <th class="titulo2">Média Pond.</th>
+          <th class="titulo2">A2</th>
+          <th class="titulo2">A3</th>
+          <th class="titulo2">A4</th>
+          <th class="titulo2">B1</th>
+          <th class="titulo2">Média Pond.</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-empresa>
+      <tr style="text-align: center; height: 40px;">
+          <td>{{ arrayCompletoParaTabela1[empresas.indexOf(empresa)].empresa }}</td>
+          <td>{{ procurarReajuste(empresa['id'],ano,"B1") }}</td>
+          <td>{{ arrayCompletoParaTabela1[empresas.indexOf(empresa)].A2 }}</td>
+          <td>{{ arrayCompletoParaTabela1[empresas.indexOf(empresa)].A3 }}</td>
+          <td>{{ arrayCompletoParaTabela1[empresas.indexOf(empresa)].A4 }}</td>
+          <td>{{ arrayCompletoParaTabela1[empresas.indexOf(empresa)].B1 }}</td>
+          <td style="text-align: center; border: 1px solid #ddd">
+              <p-progressBar 
+              class="{{arrayCompletoParaTabela1[empresas.indexOf(empresa)].Ponderada >0 ? 'redBar' : 'blueBar'}}" 
+              [value]="arrayCompletoParaTabela1[empresas.indexOf(empresa)].Ponderada < 0 ? 
+                      -arrayCompletoParaTabela1[empresas.indexOf(empresa)].Ponderada*1.3 : 
+                       arrayCompletoParaTabela1[empresas.indexOf(empresa)].Ponderada*1.3"></p-progressBar>
+              <div class="barradeProgressoTag">
+                {{  arrayCompletoParaTabela1[empresas.indexOf(empresa)].Ponderada.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}} {{tipoDeDados >0 ? "%" : ""}}
+            </div>
+          </td>
+          <td>{{ arrayCompletoParaTabela2[empresas.indexOf(empresa)].A2 }}</td>
+          <td>{{ arrayCompletoParaTabela2[empresas.indexOf(empresa)].A3 }}</td>
+          <td>{{ arrayCompletoParaTabela2[empresas.indexOf(empresa)].A4 }}</td>
+          <td>{{ arrayCompletoParaTabela2[empresas.indexOf(empresa)].B1 }}</td>
+          <td style="text-align: center; border: 1px solid #ddd">
+              <p-progressBar 
+              class="{{arrayCompletoParaTabela2[empresas.indexOf(empresa)].Ponderada >0 ? 'redBar' : 'blueBar'}}" 
+              [value]="arrayCompletoParaTabela2[empresas.indexOf(empresa)].Ponderada < 0 ? 
+                      -arrayCompletoParaTabela2[empresas.indexOf(empresa)].Ponderada*1.3 : 
+                       arrayCompletoParaTabela2[empresas.indexOf(empresa)].Ponderada*1.3"></p-progressBar>
+              <div class="barradeProgressoTag">
+                {{  arrayCompletoParaTabela2[empresas.indexOf(empresa)].Ponderada.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}  {{tipoDeDados >0 ? "%" : ""}}
+            </div>
+          </td>
+          <td>{{ arrayCompletoParaTabela3[empresas.indexOf(empresa)].A2 }}</td>
+          <td>{{ arrayCompletoParaTabela3[empresas.indexOf(empresa)].A3 }}</td>
+          <td>{{ arrayCompletoParaTabela3[empresas.indexOf(empresa)].A4 }}</td>
+          <td>{{ arrayCompletoParaTabela3[empresas.indexOf(empresa)].B1 }}</td>
+          <td style="text-align: center; border: 1px solid #ddd">
+              <p-progressBar 
+              class="{{arrayCompletoParaTabela3[empresas.indexOf(empresa)].Ponderada >0 ? 'redBar' : 'blueBar'}}" 
+              [value]="arrayCompletoParaTabela3[empresas.indexOf(empresa)].Ponderada < 0 ? 
+                      -arrayCompletoParaTabela3[empresas.indexOf(empresa)].Ponderada*1.3 : 
+                       arrayCompletoParaTabela3[empresas.indexOf(empresa)].Ponderada*1.3"></p-progressBar>
+              <div class="barradeProgressoTag">
+                {{  arrayCompletoParaTabela3[empresas.indexOf(empresa)].Ponderada.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}  {{tipoDeDados >0 ? "%" : ""}}
+            </div>
+          </td>
+          <td>{{ arrayCompletoParaTabela4[empresas.indexOf(empresa)].A2 }}</td>
+          <td>{{ arrayCompletoParaTabela4[empresas.indexOf(empresa)].A3 }}</td>
+          <td>{{ arrayCompletoParaTabela4[empresas.indexOf(empresa)].A4 }}</td>
+          <td>{{ arrayCompletoParaTabela4[empresas.indexOf(empresa)].B1 }}</td>
+          <td style="text-align: center; border: 1px solid #ddd">
+              <p-progressBar 
+              class="{{arrayCompletoParaTabela4[empresas.indexOf(empresa)].Ponderada >0 ? 'redBar' : 'blueBar'}}" 
+              [value]="arrayCompletoParaTabela4[empresas.indexOf(empresa)].Ponderada < 0 ? 
+                      -arrayCompletoParaTabela4[empresas.indexOf(empresa)].Ponderada*1.3 : 
+                       arrayCompletoParaTabela4[empresas.indexOf(empresa)].Ponderada*1.3"></p-progressBar>
+              <div class="barradeProgressoTag">
+                {{  arrayCompletoParaTabela4[empresas.indexOf(empresa)].Ponderada.toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}  {{tipoDeDados >0 ? "%" : ""}}
+            </div>
+          </td>
+
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <tr *ngIf="arrayTotais.length>0">
+        <th colspan="6" style="background-color: darkblue; color: white; text-align: center; border: 1px solid #ddd"></th>
+        <td style="text-align: center; border: 1px solid #ddd">
+            <p-progressBar 
+            class="{{arrayTotais[0] >0 ? 'redBar' : 'blueBar'}}" 
+            [value]="arrayTotais[0] < 0 ? 
+                    -arrayTotais[0]*1.3 : 
+                     arrayTotais[0]*1.3"></p-progressBar>
+            <div class="barradeProgressoTag" *ngIf="arrayTotais[0]!=0">
+              {{  arrayTotais[0].toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}  {{tipoDeDados >0 ? "%" : ""}}
+          </div>
+        </td>
+        <th colspan="4" style="background-color: darkblue; color: white; text-align: center; border: 1px solid #ddd"></th>
+        <td style="text-align: center; border: 1px solid #ddd">
+            <p-progressBar 
+            class="{{arrayTotais[1] >0 ? 'redBar' : 'blueBar'}}" 
+            [value]="arrayTotais[1] < 0 ? 
+                    -arrayTotais[1]*1.3 : 
+                     arrayTotais[1]*1.3"></p-progressBar>
+            <div class="barradeProgressoTag" *ngIf="arrayTotais[1]!=0">
+              {{  arrayTotais[1].toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}  {{tipoDeDados >0 ? "%" : ""}}
+          </div>
+        </td>
+        <th colspan="4" style="background-color: darkblue; color: white; text-align: center; border: 1px solid #ddd"></th>
+        <td style="text-align: center; border: 1px solid #ddd">
+            <p-progressBar 
+            class="{{arrayTotais[2] >0 ? 'redBar' : 'blueBar'}}" 
+            [value]="arrayTotais[2] < 0 ? 
+                    -arrayTotais[2]*1.3 : 
+                     arrayTotais[2]*1.3"></p-progressBar>
+            <div class="barradeProgressoTag" *ngIf="arrayTotais[2]!=0">
+              {{  arrayTotais[2].toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}  {{tipoDeDados >0 ? "%" : ""}}
+          </div>
+        </td>
+        <th colspan="4" style="background-color: darkblue; color: white; text-align: center; border: 1px solid #ddd"></th>
+        <td style="text-align: center; border: 1px solid #ddd">
+            <p-progressBar 
+            class="{{arrayTotais[3] >0 ? 'redBar' : 'blueBar'}}" 
+            [value]="arrayTotais[3] < 0 ? 
+                    -arrayTotais[3]*1.3 : 
+                     arrayTotais[3]*1.3"></p-progressBar>
+            <div class="barradeProgressoTag" *ngIf="arrayTotais[3]!=0">
+              {{  arrayTotais[3].toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}  {{tipoDeDados >0 ? "%" : ""}}
+          </div>
+        </td>
+    </tr>
+  </ng-template>
+</p-table>

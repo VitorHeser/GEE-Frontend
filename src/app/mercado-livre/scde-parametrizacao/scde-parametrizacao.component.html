@@ -1,0 +1,21 @@
+<div class="ui-g">
+  <p-pickList [source]="Agentes" [target]="AgentesUtilizados" sourceHeader="Disponíveis" targetHeader="Acessos"
+   [responsive]="true" filterBy="dado,agreg"  dragdrop="true"
+   [sourceStyle]="{'height':'300px', 'width': '500px'}" [targetStyle]="{'height':'300px', 'width': '500px'}">
+    <ng-template let-perfil pTemplate="item">
+      <div class="ui-helper-clearfix">
+        <div class="ui-g">
+          <div class="ui-g-6"  tooltipPosition="bottom">
+            {{perfil.dado}}
+          </div>
+          <div class="ui-g-6"  tooltipPosition="bottom">
+            {{perfil.agreg}}
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-pickList>
+  <div class="ui-g-12 ui-md-12" style="margin-top: 40px; text-align: right;">
+      <button type="button" pButton label="Salvar"  (click)="save()"></button>
+  </div>
+</div>

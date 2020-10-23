@@ -1,0 +1,62 @@
+<div class="topbar clearfix" Style = "background: whitesmoke !important;">
+    <img src="assets/images/logo.png" class="app-name"/>
+
+
+    <!-- <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
+        <i class="material-icons">menu</i>
+    </a> -->
+    <ul class="topbar-menu fadeInDown" [ngClass]="{'topbar-menu-visible': app.topbarMenuActive}">
+        <li #profile class="profile-item" [ngClass]="{'active-topmenuitem':app.activeTopbarItem === profile}" style="width:180px">
+            <a href="#" (click)="app.onTopbarItemClick($event,profile)">
+                <div class="profile-image">
+                    <img style="border-radius: 50%;"  src="{{urlimage}}">
+                </div>
+                <div class="profile-info">
+                    <span class="topbar-item-name profile-name" style="width:180px">{{nome}}</span>
+                </div>
+            </a>
+
+            <ul class="fadeInDown">
+                <li role="menuitem">
+                    <a href="#/edUser">
+                        <i class="material-icons">person</i>
+                        <span>Perfil</span>
+                        <span class="topbar-submenuitem-badge"></span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" (click)="showsenhapad()">
+                        <i class="material-icons">lock</i>
+                        <span>Alterar Senha</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="" (click)="fechar()">
+                        <i class="material-icons">power_settings_new</i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<p-dialog header="Altere a sua senha" [(visible)]="senhapad" modal="modal" showEffect="fade" [style]="{width: '400px'}">
+    <div class="ui-g-12">
+   <span class="md-inputfield">
+        <input type="password" [(ngModel)]="novasenha" pInputText>
+        <label>nova senha</label>
+    </span>
+    </div>
+    <div class="ui-g-12">
+    <span class="md-inputfield">
+        <input type="password" [(ngModel)]="novasenhaconfirm" pInputText>
+        <label>Confirme a nova senha</label>
+    </span>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-times" (click)="senhapad=false" label="Não"></button>
+            <button type="button" pButton icon="pi pi-check" (click)="alterarsenha()" label="Sim"></button>
+        </div>
+    </p-footer>
+</p-dialog>

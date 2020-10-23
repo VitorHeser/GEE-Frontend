@@ -1,0 +1,175 @@
+<div class="ui-g">
+  <div class="ui-g-6 Titulo">
+    Mês de Referência: {{ dataFormat(data) }}
+  </div>
+  <div class="ui-g-2">
+    <p-dropdown [options]="datasDisponiveis" styleClass = "drop95" class="ui-g-12"  [(ngModel)]="dataSelect"  (onChange)="TrocarData()"></p-dropdown>
+  </div>
+  <div class="ui-g-4">
+    <p-multiSelect  class="ui-g-12"  [options]="unidades" [(ngModel)]="unidadesSelect"
+    defaultLabel="Selecione a Unidade"  filter="true"  (onChange)="carregarDadosDoDash()"
+    styleClass = "drop95" ></p-multiSelect>
+  </div>
+</div>
+
+<p-progressBar class="ui-g-12" *ngIf="carregando==true" mode="indeterminate"></p-progressBar>
+<div class="ui-g-12" *ngIf="carregando==false">
+  <div class="ui-g-4">
+    <div class="ui-g-12">
+      <div class="ui-g-12">
+        <p-panel >
+          <p-header>
+              Consumo Acumulado até o dia {{diaFormat(data)}}/{{dataFormat(data)}}:
+          </p-header> 
+          <div class="ui-g">
+            <div class="ui-g-8">Quantidade de Unidades Consumidoras:</div>
+            <div class="ui-g-4" style="text-align: center;">{{Medidores.length}}</div>
+
+            <div class="ui-g-8">Consumo Total (MWh)</div>
+            <div class="ui-g-4" style="text-align: center;">{{valorFormatado(consumoTotal/1000)}}</div>
+
+            <div class="ui-g-8">Consumo Total (MWm)</div>
+            <div class="ui-g-4" style="text-align: center;">{{valorFormatado(consumoTotal/1000/24/diaFormat(data))}}</div>
+
+            <div class="ui-g-8">Custo (R$)</div>
+            <div class="ui-g-4" style="text-align: center;">{{valorFormatado(custoTotal/1000)}}</div>
+          </div>
+        </p-panel>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-12">
+        <p-panel >
+          <p-header>
+              Consumo Previsto Acumulado para o Mês:
+          </p-header> 
+          <div class="ui-g">
+            <div class="ui-g-8">Consumo Total (MWh)</div>
+            <div class="ui-g-4" style="text-align: center;">{{previsaoFormatada(consumoTotal/1000)}}</div>
+            
+            <div class="ui-g-8">Consumo Total (MWm)</div>
+            <div class="ui-g-4" style="text-align: center;">{{valorFormatado(previsao(consumoTotal)/1000/24/diaFormat(data))}}</div>
+
+            <div class="ui-g-8">Custo (R$)</div>
+            <div class="ui-g-4" style="text-align: center;">{{valorFormatado(previsao(custoTotal/1000))}}</div>
+          </div>
+        </p-panel>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-8">
+    <div class="ui-g-12 Titulo">
+      Consumo (kWh)
+    </div>
+    <app-scdegrafico-acumulado [tipo]="unidadesSelect" [unidade]="MedidoresSemZeros" [ref]="fulldataFormat(data)"  *ngIf="carregando==false"></app-scdegrafico-acumulado>
+  </div>
+</div>
+
+<div class="ui-g-12 Titulo" *ngIf="carregando==false">
+  Resumo Analítico
+</div>
+<div class="ui-g-12" *ngIf="carregando==false">
+  <div class="ui-g-4">
+    <p-panel class="ui-g">
+      <p-header>
+        Acumulado Mensal 
+      </p-header> 
+      <div class="ui-g-4">{{ dataFormat(data) }}:</div><div class="ui-g-4">{{valorFormatado(consumoTotal/1000)}} MWh</div><div class="ui-g-4">R$ {{valorFormatado(custoTotal/1000)}}</div>
+      <div class="ui-g-4">{{ dataFormat2(data) }}:</div><div class="ui-g-4">{{valorFormatado(consumoTotalAnterior/1000)}} MWh</div><div class="ui-g-4">R$ {{valorFormatado(custoTotalAnterior/1000)}}</div>
+      <div class="ui-g-4">Variação:</div><div class="ui-g-8">{{valorFormatado((consumoTotal-consumoTotalAnterior) < 0 ? -(consumoTotal-consumoTotalAnterior) :(consumoTotal-consumoTotalAnterior))}}</div>
+      <div class="ui-g-4">Variação (%):</div>
+      <div class="ui-g-4">
+        <div class="ui-g-6">
+          {{valorFormatado((1-(consumoTotal/consumoTotalAnterior))*-100)}} %
+        </div>
+        <div class="ui-g-6">
+          <i class="ui-icon-arrow-upward"   style="color: red;" *ngIf="consumoTotal>consumoTotalAnterior"></i>
+          <i class="ui-icon-arrow-downward" style="color: green;" *ngIf="consumoTotal<=consumoTotalAnterior"></i> 
+        </div>
+      </div>
+    </p-panel >
+  </div>
+  <div class="ui-g-4">
+    <p-panel  class="ui-g">
+      <p-header>
+        Acumulado Anual
+      </p-header> 
+      <div class="ui-g-4">{{Ano(data,0)}}:</div><div class="ui-g-4">{{valorFormatado(consumoAcAnoAtual/1000)}} MWh</div><div class="ui-g-4">R$ {{valorFormatado(custoAcAnoAtual/1000)}}</div>
+      <div class="ui-g-4">{{Ano(data,1)}}:</div><div class="ui-g-4">{{valorFormatado(consumoAcAnoAnterior/1000)}} MWh</div><div class="ui-g-4">R$ {{valorFormatado(custoAcAnoAnterior/1000)}}</div>
+      <div class="ui-g-4">Variação:</div><div class="ui-g-8">{{valorFormatado((consumoAcAnoAtual-consumoAcAnoAnterior) < 0 ? -(consumoAcAnoAtual-consumoAcAnoAnterior) :(consumoAcAnoAtual-consumoAcAnoAnterior))}}</div>
+      <div class="ui-g-4">Variação (%):</div>
+      <div class="ui-g-4">
+        <div class="ui-g-6">
+          {{valorFormatado((1-(consumoAcAnoAtual/consumoAcAnoAnterior))*-100)}} %
+        </div>
+        <div class="ui-g-6">
+          <i class="ui-icon-arrow-upward"   style="color: red;" *ngIf="consumoAcAnoAtual>consumoAcAnoAnterior"></i>
+          <i class="ui-icon-arrow-downward" style="color: green;" *ngIf="consumoAcAnoAtual<=consumoAcAnoAnterior"></i> 
+        </div>
+      </div>
+    </p-panel >
+  </div>
+  <div class="ui-g-4">
+    <p-panel  class="ui-g">
+      <p-header>
+        Acumulado 12 Meses
+      </p-header> 
+      <div class="ui-g-4">Atual:</div><div class="ui-g-4">{{valorFormatado(consumo12MesAtual/1000)}} MWh</div>      <div class="ui-g-4">R$ {{valorFormatado(custo12MesAtual/1000)}}</div>
+      <div class="ui-g-4">Anterior:</div><div class="ui-g-4">{{valorFormatado(consumo12MesAnterior/1000)}} MWh</div><div class="ui-g-4">R$ {{valorFormatado(custo12MesAnterior/1000)}}</div>
+      <div class="ui-g-4">Variação:</div><div class="ui-g-8">{{valorFormatado((consumo12MesAtual-consumo12MesAnterior) < 0 ? -(consumo12MesAtual-consumo12MesAnterior) :(consumo12MesAtual-consumo12MesAnterior))}}</div>
+      <div class="ui-g-4">Variação (%):</div>
+      <div class="ui-g-4">
+        <div class="ui-g-6">
+          {{valorFormatado((1-(consumo12MesAtual/consumo12MesAnterior))*-100)}} %
+        </div>
+        <div class="ui-g-6">
+          <i class="ui-icon-arrow-upward"   style="color: red;" *ngIf="consumo12MesAtual>consumo12MesAnterior"></i>
+          <i class="ui-icon-arrow-downward" style="color: green;" *ngIf="consumo12MesAtual<=consumo12MesAnterior"></i> 
+        </div>
+      </div>
+    </p-panel >
+  </div>
+</div>
+
+
+<div class="ui-g-12 Titulo"*ngIf="carregando==false">
+  Unidades Consumidoras
+</div>
+<div class="ui-g-12" *ngIf="carregando==false">
+  <div class="ui-g-12">
+    <div class="ui-g-3"   *ngFor="let und of Medidores" >
+      <div class="ui-g-12 card caixa " style="min-height: 200px;" (click)="openGraph(und)">
+        <div class="ui-g-12 cardtitles">
+          <div class="ui-g-12 titlecard ">{{und.unidade.unidade}}</div>
+          <div class="ui-g-12 subtitlecard ">{{und.unidade.agente  + " - "+und.unidade.uc}}</div>
+        </div>
+        <div class="ui-g-12 ">
+          <div class="ui-g-8 medicoes">Consumo (MWh):</div><div class="ui-g-4 medicoesresult">{{valorFormatado(und.consumoAtual/1000)}}</div>
+          <div class="ui-g-8 medicoes">Previsão de Consumo (MWh):</div><div class="ui-g-4 medicoesresult">{{previsaoFormatada(und.consumoAtual/1000)}}</div>
+          <div class="ui-g-8 medicoes">Preço (R$):</div><div class="ui-g-4 medicoesresult" pTooltip="{{und.dataPreco}}">{{valorFormatado(und.preco!=0 ? und.preco : PrecoMedio)}}</div>
+          <div class="ui-g-8 medicoes">Custo (R$):</div><div class="ui-g-4 medicoesresult">{{valorFormatado(und.consumoAtual*(und.preco!=0 ? und.preco : PrecoMedio)/1000)}}</div>
+          <div class="ui-g-8 medicoes">Previsão de Custo (R$):</div><div class="ui-g-4 medicoesresult">{{previsaoFormatada(und.consumoAtual*(und.preco!=null ? und.preco : PrecoMedio)/1000)}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog  #dial1 (onShow)="showDialogMaximized(dial1)"  header="Gráfico" [(visible)]="pdialogGraph" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '500px'}">
+  <p-tabView *ngIf="pdialogGraph" >
+      <p-tabPanel header="Dashboard Indicador">
+          <app-scdeanalise-indicador *ngIf="pdialogGraph"  [datan]="data" [data]="fulldataFormat(data)"  [UnidadeConsumidora]="UnidadeSelecionada"></app-scdeanalise-indicador>
+      </p-tabPanel>
+      <p-tabPanel header="Arquivos - DEVEC">
+        <app-ml-devec *ngIf="pdialogGraph" [Unidade]="UnidadeSelecionada.unidade.ucmercadoLivre.un"  [Referencia]="data"></app-ml-devec>
+      </p-tabPanel>
+      <p-tabPanel header="Arquivos - Fornecimento">
+        <app-ml-nfs-uc *ngIf="pdialogGraph" [Unidade]="UnidadeSelecionada.unidade.ucmercadoLivre"  [Referencia]="data"></app-ml-nfs-uc>
+      </p-tabPanel>
+      <p-tabPanel header="Arquivos - Distribuição">
+        <app-ml-ucs-arquivos *ngIf="pdialogGraph" [Unidade]="UnidadeSelecionada.unidade.ucmercadoLivre"  [Referencia]="data"></app-ml-ucs-arquivos>
+      </p-tabPanel>
+  </p-tabView>
+  
+  
+</p-dialog>

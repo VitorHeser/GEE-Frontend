@@ -1,0 +1,39 @@
+<div class="ui-g-12">
+  <h3 *ngIf="Unidade!=null">{{Unidade.nomeUc}}</h3>
+</div>
+<div class="ui-g-6">
+  <div class="ui-g-12">
+    <div class="ui-g-12">
+      <h3>Fornecimento</h3>
+    </div>
+    <p-dropdown [options]="datasDisponiveis"  class="ui-g-12" styleClass = "drop95"  [(ngModel)]="Referencia" (onChange)="CarregarFaturas()"></p-dropdown>
+    <p-table #dt class="ui-g-12" [columns]="cols" [value]="FaturasSemFiltro" [paginator]="true" [rows]="20">
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th style="text-align: right;" style="width:190px">
+              Contrato
+            </th>
+            <th style="text-align: right;" style="width:80px">
+            </th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData">
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+              <td>
+                {{rowData['fornecedor'].razaoSocial}}
+              </td>
+              <td>
+                <button icon="ui-icon-remove-red-eye" type="button" (click)="abrirpdf(rowData['id'])"  pButton></button>
+              </td>
+          </tr>
+      </ng-template>  
+    </p-table>
+  </div>
+</div>

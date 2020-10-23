@@ -1,0 +1,105 @@
+<div class="ui-g-12">
+  <h3 *ngIf="Unidade!=null">{{Unidade.nomeUc}}</h3>
+</div>
+<div class="ui-g-6">
+  <div class="ui-g-12">
+    <div class="ui-g-12">
+      <h3>Fornecimento</h3>
+    </div>
+    <p-table #dt class="ui-g-12" [columns]="cols" [value]="FaturasSemFiltro" [paginator]="true" [rows]="20">
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th style="text-align: right;" style="width:70px">
+            </th>
+            <th style="text-align: right;" style="width:70px">
+            </th>
+            <th style="text-align: right;" style="width:70px">
+            </th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData">
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+              <td>
+                <button icon="ui-icon-remove-red-eye" type="button" (click)="abrirpdf(rowData['id'])"  pButton></button>
+              </td>
+              <td>
+                <button icon="ui-icon-edit" type="button" (click)="RatearUnidade(rowData)"  pButton></button>
+              </td>
+              <td>
+                <button icon="ui-icon-delete" type="button" (click)="DeletarFatura(rowData['id'])"  pButton></button>
+              </td>
+          </tr>
+      </ng-template>  
+    </p-table>
+  </div>
+</div>
+<div class="ui-g-6 card">
+  <h3>Nova</h3>
+  <div class="ui-g-4">
+    <div class="ui-g-12">
+        <label >Nome</label>
+    </div>
+    <div class="ui-g-12">
+        <input class="ui-g-12" pInputText [(ngModel)]="nome" />
+    </div>
+  </div>
+  <div class="ui-g-4">
+    <div class="ui-g-12">
+        <label >Referencia</label>
+    </div>
+    <div class="ui-g-12">
+      <p-dropdown [options]="datasDisponiveis"  class="ui-g-12" styleClass = "drop95"  [(ngModel)]="Referencia"></p-dropdown>
+    </div>
+  </div>
+  <div class="ui-g-4">
+    <div class="ui-g-12">
+        <label >Tipo</label>
+    </div>
+    <div class="ui-g-12">
+      <p-dropdown [options]="Opcoes"  class="ui-g-12" styleClass = "drop95"  [(ngModel)]="Classificacao"></p-dropdown>
+    </div>
+  </div>
+
+  <div class="ui-g-12">
+    <p-fileUpload chooseLabel="Escolher"  cancelLabel="Cancelar" uploadLabel="Enviar" customUpload="true" (uploadHandler)="onUpload($event)"> 
+      <ng-template pTemplate="content">
+          <ul *ngIf="uploadedFiles.length">
+              <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+          </ul>
+      </ng-template>    
+    </p-fileUpload>
+  </div>
+
+  <div class="ui-g-12" *ngIf="Ativacao">
+    <div class="ui-g-10">
+      <h3>Rateio {{UnidadeSelecionada.nomeArquivo}}</h3>
+    </div>
+    <div class="ui-g-1">
+      <button icon="ui-icon-add" type="button" (click)="adicionarRateio(UnidadeSelecionada.id)"  pButton></button>
+    </div>
+    <div class="ui-g-1" style="text-align: right;">
+      <button icon="ui-icon-clear" type="button" (click)="salvarAlteracoes(UnidadeSelecionada)"  pButton></button>
+    </div>
+    <div class="ui-g-11">
+      <div class="ui-g-12" *ngFor="let c of UnidadeSelecionada.contratos">
+        <div class="ui-g-11">
+          <div class="ui-g-1" style="text-align: right;">Rateio</div>
+          <div class="ui-g-2"><input class="ui-g-12" pInputText type="number" [(ngModel)]="c.rateio" (onChange)="alterarRateio(c)"/></div>
+          <div class="ui-g-1" style="text-align: right;">UC</div>
+          <div class="ui-g-8"><p-dropdown optionLabel="nomeUc" [options]="unidades"  class="ui-g-12" styleClass = "drop95"  (onChange)="alterarRateio(c)" [(ngModel)]="c.uc"></p-dropdown></div>
+        </div>
+        <div class="ui-g-1">
+          <button icon="ui-icon-delete" type="button" (click)="deletarRateio(c.id)"  pButton></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

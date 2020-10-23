@@ -1,0 +1,28 @@
+
+  <p-table #dt  [value]="aclunids" selectionMode="single"
+  [(selection)]="aclselecionado"  *ngIf="boolacl"
+  (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>
+                Ano
+            </th>
+            <th >
+                Valor
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData>
+        <tr [pSelectableRow]="rowData">
+            <td >
+                {{rowData["ano"]}}
+            </td>
+            <td >
+                {{rowData["porcentagemACL"]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
+    </ng-template>    
+  </p-table>

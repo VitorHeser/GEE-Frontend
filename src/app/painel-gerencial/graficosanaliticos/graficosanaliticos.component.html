@@ -1,0 +1,77 @@
+<div class="ui-g-12" *ngIf="carregado==true">
+  <div class="ui-g-12">
+    <div class="ui-g-5">
+      <p-dropdown  class="ui-g-12" [options]="Empresas" [(ngModel)]="EmpresaSelected" 
+      (onChange)="criarArrayDoGrafico()"
+      placeholder="Selecione a Empresa" [autoWidth]="true" filter="true"  
+      styleClass = "drop95" optionLabel="label"></p-dropdown>
+    </div>
+    <div class="ui-g-5">
+      <div class="ui-g-6">
+        <div class="ui-g-3">
+          Início
+        </div>
+        <div class="ui-g-9">
+          <p-calendar class="ui-g-12" [(ngModel)]="date1" (onSelect)="criarArrayDoGrafico()"
+          view="month" dateFormat="mm/yy" [showTime]="false"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="ui-g-6">
+        <div class="ui-g-3">
+          Fim
+        </div>
+        <div class="ui-g-9">
+          <p-calendar class="ui-g-12" [(ngModel)]="date2" (onSelect)="criarArrayDoGrafico()"
+          view="month" dateFormat="mm/yy" [showTime]="false"
+          ></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="ui-g-2" style="text-align:center">
+      <p-selectButton [options]="SelecaoAguaEsg" (onChange)="criarArrayDoGrafico()" [(ngModel)]="AguaEsgoSelect"></p-selectButton>
+    </div>
+    <div class="ui-g-6" style="text-align:center">
+      <div class="ui-g-12" style="text-align:left">
+        Eixo Principal: 
+      </div>
+      <div class="ui-g-12" style="text-align:center">
+        <p-selectButton [options]="SelecaoIndicadores" (onChange)="criarArrayDoGrafico()" [(ngModel)]="IndicadoresSelect"></p-selectButton>
+      </div>
+    </div>
+    <div class="ui-g-6" style="text-align:center">
+      <div class="ui-g-12" style="text-align:left">
+        Barras Adicionais: 
+      </div>
+      <div class="ui-g-12" style="text-align:center">
+        <p-selectButton multiple="multiple" [options]="SelecaoAdicionais" (onChange)="criarArrayDoGrafico()" [(ngModel)]="Adicionais"></p-selectButton>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="ui-g-12" style="text-align:center">
+    <app-graficos *ngIf="carregar" [tamanho]="'630px'" [tendencia]="true"  
+    [limites]="true" [Volumes]="true" 
+    [DadosAux]="DadosAux" [indicador]="indicador"  class="ui-g-12"></app-graficos>
+  </div>
+
+  <div *ngIf="carregar" class="ui-g-12"  style="text-align:center">
+    <p-table [value]="table">
+      <ng-template pTemplate="header" >
+          <tr style="font-size: 10px !important;">
+            <td>Eixo</td>
+            <td>{{procurarCor(IndicadoresSelect, AguaEsgoSelect).label}}</td>
+            <td *ngFor="let in of Adicionais">{{procurarCor(in, AguaEsgoSelect).label}}</td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-indicador>
+        <tr style="font-size: 10px !important;">
+          <td>{{ indicador.eixo }}</td>
+          <td>{{ indicador[IndicadoresSelect] }}</td>
+          <td *ngFor="let in of Adicionais">{{indicador[in]}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

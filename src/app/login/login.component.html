@@ -1,0 +1,66 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<!-- <p-toast [style]="{marginTop:p-toast> -->
+<div class="loginim-lada">
+    <div class="titlePulsingtop">
+        Web
+    </div>
+    <div class="titlePulsing">
+        GEE
+    </div>
+    <div class="ocean">
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <div style="height: 100%;">
+        <div class="login-body">
+            <div class="login-panel ui-fluid ">
+                <div class="ui-g">
+                    <div class="ui-g-12" align="center" style="margin-left: auto;">
+                        <div class="logaegea"> 
+                            <img src="assets/layout/images/logoAegea.png"  alt="" />
+                        </div>
+                    </div>
+        
+                    
+                    <div class="ui-g-12">
+                            <span class="md-inputfield">
+                                <input type="text" [(ngModel)]="usuario.email" pInputText>
+                                <label>Usuário</label>
+                            </span>
+                    </div>
+                    <div class="ui-g-12">
+                            <span class="md-inputfield">
+                                <input type="password" [(ngModel)]="usuario.senha" pInputText>
+                                <label>Senha</label>
+                            </span>
+                    </div>
+                    <div  class="ui-g-12 button-container">
+                        <button pButton type="submit" *ngIf="carregando==false" label="Entrar" (click)= "logar()" icon="ui-icon-person"></button>
+                        <p-progressBar  *ngIf="carregando==true" mode="indeterminate"></p-progressBar>
+                    </div>
+                </div>
+        
+                <p-dialog header="Altere a sua senha" [(visible)]="senhapad" modal="modal" showEffect="fade" [style]="{width: '400px'}">
+                    <div class="ui-g-12">
+                <span class="md-inputfield">
+                        <input type="password" [(ngModel)]="novasenha" pInputText>
+                        <label>Nova senha</label>
+                    </span>
+                    </div>
+                    <div class="ui-g-12">
+                    <span class="md-inputfield">
+                        <input type="password" [(ngModel)]="novasenhaconfirm" pInputText>
+                        <label>Confirme a nova senha</label>
+                    </span>
+                    </div>
+                    <p-footer>
+                        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                            <button type="button" pButton icon="pi pi-times" (click)="senhapad=false" label="Não"></button>
+                            <button type="button" pButton icon="pi pi-check" (click)="alterarsenha()" label="Sim"></button>
+                        </div>
+                    </p-footer>
+                </p-dialog>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+<div class="ui-g-8">
+  <h1>Unidades de Negócio</h1>
+  <p-table #dt [columns]="cols" [value]="UndNegocios" selectionMode="single"
+  [(selection)]="UndNegociosSelecionado" 
+  (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="20">
+    <ng-template pTemplate="caption">
+        Lista de Unidades
+    </ng-template>
+    <ng-template pTemplate="caption">
+        <div style="text-align: right">        
+            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <th >
+                Empresa
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td >
+                {{rowData["empresaUndNeg"].empresa}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+            <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
+        </div>
+    </ng-template>    
+  </p-table>
+<!-- ================================================================================================== -->
+  <p-dialog header="Unidade de Negócio" [(visible)]="displayDialog" [focusOnShow]="false" 
+  [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '50%', height: '50%'}">
+    <div class="p-grid ui-fluid" *ngIf="displayDialog">
+        <div class="p-col-12">
+            <label for="descricao">Descrição</label>
+        </div>
+        <div class="p-col-12">
+            <input pInputText id="descricao" [(ngModel)]="UndNegociosSelecionado.descricao" />
+        </div>
+        <br>
+        <div class="p-col-12">
+            <label for="pesoNoCusto">Peso no Custo Total</label>
+        </div>
+        <div class="p-col-12">
+            <input pInputText id="pesoNoCusto" type="number" [(ngModel)]="UndNegociosSelecionado.pesoNoCusto" />
+        </div>
+        <br>
+        <div class="p-col-12">
+            <label for="empresa">Empresa</label>
+        </div>
+        <div class="p-col-12" style="height:50px!important">
+          <p-dropdown  class="ui-g-12" [options]="empresas" [(ngModel)]="UndNegociosSelecionado.empresaUndNeg" 
+            placeholder="Selecione a Versão" [autoWidth]="true" filter="true"  
+            styleClass = "drop95" optionLabel="empresa"></p-dropdown>
+        </div>
+        <div class="p-col-12">
+          <app-migracao-acl class="p-col-12" *ngIf="displayDialog" [unidade]="UndNegociosSelecionado" ></app-migracao-acl>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialaog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-times" (click)="delete()" label="Delete"></button>
+            <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+  </p-dialog>
+
+  <p-dialog header="Migracoes ACL" [(visible)]="displayacl" [focusOnShow]="false" 
+  [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '500px'}">
+    <div class="p-grid ui-fluid" *ngIf="migracoesacl">
+        <div class="p-col-12">
+            <label for="ano">Ano</label>
+        </div>
+        <div class="p-col-12">
+            <input pInputText id="ano" type="number" [(ngModel)]="migracoesacl.ano" />
+        </div>
+        <div class="p-col-12">
+            <label for="porcentagemACL">% de Migração</label>
+        </div>
+        <div class="p-col-12">
+            <input pInputText id="porcentagemACL" type="number" [(ngModel)]="migracoesacl.porcentagemACL" />
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-times" (click)="deleteacl()" label="Delete"></button>
+            <button type="button" pButton icon="pi pi-check" (click)="saveacl()" label="Save"></button>
+        </div>
+    </p-footer>
+  </p-dialog>
+</div>
+<div class="ui-g-4">
+  <h1>IPCA Acumulado</h1>
+    <app-reajustes></app-reajustes>
+</div>

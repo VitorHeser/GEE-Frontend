@@ -1,0 +1,15 @@
+.zerados {
+    background-color: #a00000 !important;
+    color: #ffffff !important;
+}
+.caixaDeAnalise{
+    height: 300px;
+    text-align: center;
+}
+.buttonTop{
+    text-align: right;
+}
+.texttop{
+    margin-top: -40px !important;
+    font-weight: bold;
+}

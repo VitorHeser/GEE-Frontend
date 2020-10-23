@@ -1,0 +1,83 @@
+<div class="ui-g-12">
+  <div class="ui-g-12">
+    <div class="ui-g-12 card">
+      <div class="ui-g-5">
+        <div class="ui-g-6">
+          <div class="ui-g-3">
+            Início
+          </div>
+          <div class="ui-g-9">
+            <p-calendar class="ui-g-12" [(ngModel)]="date1"
+            view="month" dateFormat="mm/yy" [showTime]="false"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6">
+          <div class="ui-g-3">
+            Fim
+          </div>
+          <div class="ui-g-9">
+            <p-calendar class="ui-g-12" [(ngModel)]="date2" 
+            view="month" dateFormat="mm/yy" [showTime]="false"
+            ></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-3">
+      </div>
+      <div class="ui-g-4" style="text-align:right">
+        <div class="ui-g-12"  style="text-align: right;">
+          <p-selectButton [options]="SelecaoAguaEsg" [(ngModel)]="AguaEsgoSelect"></p-selectButton>
+        </div>
+        <div class="ui-g-12" style="text-align: right;">
+          <p-button label="Procurar" (click)="Pesquisar()"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <p-progressBar class="ui-g-12" *ngIf="carregando==true" mode="indeterminate"></p-progressBar>
+  <div *ngIf="carregando==false" class="ui-g-12">
+    <p-dropdown  class="ui-g-4" *ngIf="carregando==false" [options]="SelecaoIndicadores" [(ngModel)]="IndicadoresSelected" 
+      placeholder="Selecione o Indicador" [autoWidth]="true" filter="true" (onChange)="separarIndicadores()"
+      styleClass = "drop95" optionLabel="label"></p-dropdown>
+    <p-organizationChart class="ui-g-12" *ngIf="carregando==false"  [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)"
+      styleClass="company">
+      <ng-template let-node pTemplate="person">
+          <div class="node-header ui-corner-top" >{{node.label}}</div>
+          <div>{{(node.data.valor*100).toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits: 2})}}</div>
+        
+          <div class="node-content">
+            <i *ngIf="node.data.valor>0.01" class="ui-icon-trending-up" style="color: red;"></i>
+            <i *ngIf="node.data.valor>=-0.01 && node.data.valor<=0.01 " class="ui-icon-trending-flat" ></i>
+            <i *ngIf="node.data.valor<-0.01" class="ui-icon-trending-down" style="color: green;"></i>
+          </div>
+      </ng-template>
+      <ng-template let-node pTemplate="department">
+          {{node.label}}
+      </ng-template>
+    </p-organizationChart>
+  </div>
+</div>
+
+
+
+<!-- GRAFICOS COGNOS ANALÍTICOS -->
+<p-dialog  #dial2 (onShow)="showDialogMaximized(dial2)" (onClose)="indicadoresAnaliticos==false" 
+  class="ui-g" header="Indicadores Analíticos" 
+  *ngIf="indicadoresAnaliticos" [(visible)]="indicadoresAnaliticos" 
+  [responsive]="true"  showEffect="fade" 
+  [maximizable]="true" [style]="{  width: '100%' }"   (onAfterHide)="onDialogHide()">
+
+  <app-graficosanaliticos 
+    [EmpresaSelected]="{label: EmpresaSelected, value: EmpresaSelected}"   
+    [IndicadoresSelect]="IndicadoresSelected.value"   
+    [AguaEsgoSelect]="AguaEsgoSelect"   
+    [carregardevez]="true"   
+    [date2]="date2"   
+    [date1]="date1"   
+  >
+  </app-graficosanaliticos>
+</p-dialog>
+
+

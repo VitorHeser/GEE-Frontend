@@ -1,0 +1,26 @@
+<div class="ui-g-12 card">
+  <div class="ui-g-2">
+    <h3>Data de Referência:</h3>
+    <p-calendar class="ui-g-12" [(ngModel)]="date1" 
+    view="month" dateFormat="yy-mm-dd" 
+    ></p-calendar>
+  </div>
+  <div class="ui-g-2">
+    <h3>Versões:</h3>
+    <p-dropdown  class="ui-g-12" [options]="Versoes" [(ngModel)]="VersoesSelected" 
+    [autoWidth]="true" filter="true"  
+    styleClass = "drop95"  optionLabel="versao"></p-dropdown>
+  </div>
+  <div class="ui-g-8"  style="text-align: right; ">
+    <div class="ui-g-12">
+      <p-selectButton [options]="caixaDeSelecao" [(ngModel)]="AguaEsgoSelect"></p-selectButton>
+    </div>
+    <div class="ui-g-12">
+      <p-button label="Procurar" (click)="carregar()"></p-button>
+    </div>
+  </div>
+</div>
+<div class="ui-g-12" *ngIf="visible==true">
+  <p-progressBar  *ngIf="carregando==true" mode="indeterminate"></p-progressBar>
+  <app-viewpainel-energia *ngIf="carregando==false"  [Totais]="Totais"> </app-viewpainel-energia>
+</div>

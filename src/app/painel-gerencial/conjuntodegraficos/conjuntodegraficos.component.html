@@ -1,0 +1,122 @@
+<div class="ui-g-12" *ngIf="carregado==true">
+  <p-dropdown  class="ui-g-12" [options]="Empresas" [(ngModel)]="EmpresaSelected" (onChange)="carregarArrays()"
+  placeholder="Selecione a Empresa" [autoWidth]="true" filter="true"  
+  styleClass = "drop95" optionLabel="label"></p-dropdown>
+  <br><br><br>
+
+  <div class="ui-g-12" style="text-align: center;">
+    <div class="ui-g-6"  style="text-align: center;">
+      <p-toggleButton  [(ngModel)]="Volumes" onLabel="Volumes" offLabel="Volumes" (onChange)="Consumos=false;recarregar('volume')"
+      onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'150px'}"></p-toggleButton>
+    </div>
+    <div class="ui-g-6"  style="text-align: center">
+      <p-toggleButton [(ngModel)]="Consumos" onLabel="Consumos" offLabel="Consumos" (onChange)="Volumes=false;recarregar('consumo')"
+      onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'150px'}"></p-toggleButton>
+    </div>
+  </div>
+  <div class="ui-g-12" style="text-align: center;">
+    <p-selectButton [options]="caixaDeSelecao" (onChange)="carregarArrays()" [(ngModel)]="AguaEsg"></p-selectButton>  
+  </div>
+
+  <div class="ui-g-12 card"  *ngIf="carregar">
+    <div class="ui-g-12"><h3>kWh/m³</h3></div>
+    <app-graficos *ngIf="carregar" style="margin-top: -50px;" [Consumos]="Consumos"  [DadosAux]="DadosAux" [Volumes]="Volumes"  [indicador]="indicador1"  class="ui-g-12"></app-graficos>
+    <div class="ui-g-12">
+      <p-table [value]="indicador1">
+        <ng-template pTemplate="header" >
+            <tr style="font-size: 10px !important;">
+                <th >Ano</th>
+                <th>Jan</th><th>Fev</th><th>Mar</th><th>Abr</th><th>Mai</th><th>Jun</th>
+                <th>Jul</th><th>Ago</th><th>Set</th><th>Out</th><th>Nov</th><th>Dez</th><th>Total</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car index>
+          <tr style="font-size: 8px !important;">
+                <td>{{car.label}}</td>
+                <td>{{car.eixo[0]}}</td>
+                <td>{{car.eixo[1]}}</td>
+                <td>{{car.eixo[2]}}</td>
+                <td>{{car.eixo[3]}}</td>
+                <td>{{car.eixo[4]}}</td>
+                <td>{{car.eixo[5]}}</td>
+                <td>{{car.eixo[6]}}</td>
+                <td>{{car.eixo[7]}}</td>
+                <td>{{car.eixo[8]}}</td>
+                <td>{{car.eixo[9]}}</td>
+                <td>{{car.eixo[10]}}</td>
+                <td>{{car.eixo[11]}}</td>
+                <td>{{totais1[indicador1.indexOf(car)]}}</td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="ui-g-12 card"  *ngIf="carregar" >
+    <div class="ui-g-12"><h3>R$/m³</h3></div>
+    <app-graficos *ngIf="carregar" style="margin-top: -50px;" [Consumos]="Consumos"  [DadosAux]="DadosAux" [Volumes]="Volumes"  [indicador]="indicador2"  class="ui-g-12"></app-graficos>
+    <div class="ui-g-12">
+      <p-table [value]="indicador2">
+        <ng-template pTemplate="header" >
+            <tr style="font-size: 10px !important;">
+                <th >Ano</th>
+                <th>Jan</th><th>Fev</th><th>Mar</th><th>Abr</th><th>Mai</th><th>Jun</th>
+                <th>Jul</th><th>Ago</th><th>Set</th><th>Out</th><th>Nov</th><th>Dez</th><th>Total</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car>
+          <tr style="font-size: 8px !important;">
+                <td>{{car.label}}</td>
+                <td>{{car.eixo[0]}}</td>
+                <td>{{car.eixo[1]}}</td>
+                <td>{{car.eixo[2]}}</td>
+                <td>{{car.eixo[3]}}</td>
+                <td>{{car.eixo[4]}}</td>
+                <td>{{car.eixo[5]}}</td>
+                <td>{{car.eixo[6]}}</td>
+                <td>{{car.eixo[7]}}</td>
+                <td>{{car.eixo[8]}}</td>
+                <td>{{car.eixo[9]}}</td>
+                <td>{{car.eixo[10]}}</td>
+                <td>{{car.eixo[11]}}</td>
+                <td>{{totais2[indicador2.indexOf(car)]}}</td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="ui-g-12 card"  *ngIf="carregar">
+    <div class="ui-g-12"><h3>R$/kWh</h3></div>
+    <app-graficos *ngIf="carregar" style="margin-top: -50px;" [Consumos]="Consumos"  [DadosAux]="DadosAux" [Volumes]="Volumes" [indicador]="indicador3"  class="ui-g-12"></app-graficos>
+    <div class="ui-g-12">
+      <p-table [value]="indicador3">
+        <ng-template pTemplate="header" >
+            <tr style="font-size: 10px !important;">
+                <th >Ano</th>
+                <th>Jan</th><th>Fev</th><th>Mar</th><th>Abr</th><th>Mai</th><th>Jun</th>
+                <th>Jul</th><th>Ago</th><th>Set</th><th>Out</th><th>Nov</th><th>Dez</th><th>Total</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car>
+          <tr style="font-size: 8px !important;">
+                <td>{{car.label}}</td>
+                <td>{{car.eixo[0]}}</td>
+                <td>{{car.eixo[1]}}</td>
+                <td>{{car.eixo[2]}}</td>
+                <td>{{car.eixo[3]}}</td>
+                <td>{{car.eixo[4]}}</td>
+                <td>{{car.eixo[5]}}</td>
+                <td>{{car.eixo[6]}}</td>
+                <td>{{car.eixo[7]}}</td>
+                <td>{{car.eixo[8]}}</td>
+                <td>{{car.eixo[9]}}</td>
+                <td>{{car.eixo[10]}}</td>
+                <td>{{car.eixo[11]}}</td>
+                <td>{{totais3[indicador3.indexOf(car)]}}</td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+ 

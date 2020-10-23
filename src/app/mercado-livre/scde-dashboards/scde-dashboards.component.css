@@ -1,0 +1,36 @@
+.Titulo{
+    font-size: 24px;
+    font-weight: bold;
+    
+}
+.titlecard{
+    font-size: 15px;
+    font-weight: bold;
+
+}
+.subtitlecard{
+    font-size: 10px;
+    color: #6e6e6e;
+}
+.cardtitles{
+    min-height: 90px;
+}
+
+.medicoes{
+    font-size: 12px;
+    font-weight: bold;
+    color: #6e6e6e;
+    
+}
+.medicoesresult{
+    font-size: 12px;
+    color: #6e6e6e;
+    text-align: right;
+}
+
+.caixa {
+    transition: 0.7s;
+  }
+.caixa:hover {
+    background-color: #b4b4b43d;
+  }
